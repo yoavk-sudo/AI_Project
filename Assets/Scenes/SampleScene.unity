@@ -558,7 +558,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2855486711919602164, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
       propertyPath: m_BaseOffset
-      value: 3
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6477060670393863557, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 6477060670393863557, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -598,6 +602,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6477060670393863557, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6477060670393863557, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6656644828687905237, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
