@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1cb12683c7ff049ba1dd4e92ee109f, type: 3}
   m_Name: Crystal Shards
   m_EditorClassIdentifier: 
-  resourceName: 
+  resourceName: Crystal Shards

@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4491a3430a03404a91ecc2e846a5f30, type: 3}
   m_Name: Runed Shield
   m_EditorClassIdentifier: 
-  recipeName: 
-  ingredients: []
+  recipeName: Runed Shield
+  ingredients:
+  - resource: {fileID: 11400000, guid: fb485489277c37544841a46ee68776f3, type: 2}
+    amount: 4
+  - resource: {fileID: 11400000, guid: f037a0dd50fd679419b42ee878ccfce6, type: 2}
+    amount: 2
   resultAmount: 1

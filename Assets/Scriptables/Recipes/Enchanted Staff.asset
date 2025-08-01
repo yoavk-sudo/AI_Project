@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4491a3430a03404a91ecc2e846a5f30, type: 3}
   m_Name: Enchanted Staff
   m_EditorClassIdentifier: 
-  recipeName: 
-  ingredients: []
+  recipeName: Enchanted Staff
+  ingredients:
+  - resource: {fileID: 11400000, guid: 8e68c81952eca0a4aae63e5200c662d1, type: 2}
+    amount: 5
+  - resource: {fileID: 11400000, guid: f037a0dd50fd679419b42ee878ccfce6, type: 2}
+    amount: 3
   resultAmount: 1
