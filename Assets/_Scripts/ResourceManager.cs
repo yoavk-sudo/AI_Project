@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class ResourceManager : MonoBehaviour
 {
     private Dictionary<string, int> _resourceCounts = new Dictionary<string, int>();
     public static ResourceManager Instance { get; private set; }
+    public Action<string, int> UpdateResourceEvent;
     private void Awake()
     {
         if (Instance == null)
@@ -25,13 +27,19 @@ public class ResourceManager : MonoBehaviour
         }
         return _resourceCounts[resourceName];
     }
-    public void UseResourceCount(string resourceName,int usedAmount)
+    public void UseResourceAmount(string resourceName,int usedAmount)
     {
         _resourceCounts[resourceName] -= usedAmount;
         if (_resourceCounts[resourceName] < 0)
         {
             _resourceCounts[resourceName] = 0; // Prevent negative counts
         }
+        UpdateResourceEvent?.Invoke(resourceName, _resourceCounts[resourceName]);
+    }
+    public void GainResourceAmount(string resourceName, int gainedAmount)
+    {
+        _resourceCounts[resourceName] += gainedAmount;
+        UpdateResourceEvent?.Invoke(resourceName, _resourceCounts[resourceName]);
     }
     //dictionary to hold resource counts
 }
