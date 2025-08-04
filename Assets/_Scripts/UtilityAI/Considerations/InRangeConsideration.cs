@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace UtilityAI {
     [CreateAssetMenu(menuName = "UtilityAI/Considerations/InRangeConsideration")]
@@ -15,14 +16,16 @@ namespace UtilityAI {
             
             Transform targetTransform = context.sensor.GetClosestTarget(targetTag);
             if (targetTransform == null) return 0f;
+            Vector3 targetPosY0 = targetTransform.position;
             
             Transform agentTransform = context.agent.transform;
-            
-            bool isInRange = Vector3.Distance(agentTransform.position, targetTransform.position) <= maxDistance;//is in max range
+            Vector3 agentPosY0 = agentTransform.position;
+            targetPosY0.y = 0;
+            agentPosY0.y = 0;
+            bool isInRange = Vector3.Distance(agentPosY0, targetPosY0) <= maxDistance;//is in max range
             if (!isInRange) return 0f;
             
-            Vector3 directionToTarget = targetTransform.position - agentTransform.position;
-            directionToTarget.y = 0; // Ignore vertical distance
+            Vector3 directionToTarget = targetPosY0 - agentPosY0;// Ignore vertical distance
             float distanceToTarget = directionToTarget.magnitude;
             
             float normalizedDistance = Mathf.Clamp01(distanceToTarget / maxDistance);

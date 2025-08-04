@@ -51,6 +51,7 @@ MonoBehaviour:
   actions: []
   Agent: {fileID: 7818748731444551144}
   Sensor: {fileID: 1358529174140946411}
+  readonlyEvaluations: []
 --- !u!195 &7818748731444551144
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -106,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6425802693f745e46947df906a2eaa92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 10
+  detectionRadius: 5
   targetTags: []
 --- !u!1 &9059041126787056257
 GameObject:

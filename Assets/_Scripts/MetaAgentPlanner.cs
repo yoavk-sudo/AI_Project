@@ -22,6 +22,7 @@ public class MetaAgentPlanner : MonoBehaviour
 
     private void Start()
     {
+        //create spawner and refennce to instancited here instead of find.
         villagers = new List<VillagerAgent>(FindObjectsByType<VillagerAgent>(FindObjectsSortMode.None));
         drones = new List<DroneAgent>(FindObjectsByType<DroneAgent>(FindObjectsSortMode.None));
         mage = FindAnyObjectByType<MageAgent>();

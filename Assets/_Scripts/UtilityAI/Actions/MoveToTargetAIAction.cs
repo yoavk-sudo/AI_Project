@@ -13,6 +13,5 @@ public class MoveToTargetAIAction : AIAction {
         context.target = target;
             
         context.agent.SetDestination(target.position);
-        Debug.Log("went to target: " + target.name);
     }
 }
