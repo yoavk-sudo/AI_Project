@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,19 +6,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "UtilityAI/Actions/CollectResourceAction")]
 public class CollectResourceAction : AIAction
 {
-    public static Dictionary<UtilityAIAgent, bool> isCollecting = new Dictionary<UtilityAIAgent, bool>();
     public override void Initialize(Context context)
     {
         context.sensor.targetTags.Add(targetTag);
-        if (!isCollecting.ContainsKey(context.brain))
+        if (!isCollecting.ContainsKey((context.brain, this)))
         {
-            isCollecting[context.brain] = true; // Initialize collecting state
+            isCollecting[(context.brain, this)] = true; // Initialize collecting state
         }
     }
 
     public override float CalculateUtility(Context context)
     {
-        if (isCollecting.TryGetValue(context.brain, out bool collecting) && !collecting)
+        if (isCollecting.TryGetValue((context.brain, this), out bool collecting) && !collecting)
         {
             return 0f; // If not collecting, return 0 utility
         }
@@ -29,15 +29,11 @@ public class CollectResourceAction : AIAction
         var target = context.sensor.GetClosestTarget(targetTag);
         if (target == null) return;
         context.target = target;
-        context.brain.StartCoroutine(DisableAction(context));
+        PerformActionOverTime(context, 2, GainResources);
     }
 
-    public IEnumerator DisableAction(Context context)
+    private void GainResources()
     {
-        isCollecting[context.brain] = false;
-        Debug.Log($"<color=green>{context.brain.name} is collecting resources...</color>");
-        yield return new WaitForSeconds(2f); // Simulate collection time
         ResourceManager.Instance.GainResourceAmount(targetTag, 1);
-        isCollecting[context.brain] = true;
     }
 }
