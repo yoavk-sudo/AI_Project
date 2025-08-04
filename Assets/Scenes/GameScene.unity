@@ -2915,6 +2915,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4985378656703597778, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
+      propertyPath: targetTags.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985378656703597778, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
+      propertyPath: 'targetTags.Array.data[0]'
+      value: Iron
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985378656703597778, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
+      propertyPath: 'targetTags.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4987649386733318816, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
