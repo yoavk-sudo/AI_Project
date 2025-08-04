@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dadf96155e3a784da74ab7c12046478, type: 3}
-  m_Name: GoToWood
+  m_Script: {fileID: 11500000, guid: 4ddb367307a764f4f98112e5803661a1, type: 3}
+  m_Name: ChopWood
   m_EditorClassIdentifier: 
   targetTag: Wood
-  consideration: {fileID: 11400000, guid: c82f1641789c1cf4a8edd8f50cf9dc11, type: 2}
+  consideration: {fileID: 11400000, guid: 49e6f0c42a2812946a709a255166d287, type: 2}

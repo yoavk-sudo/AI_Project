@@ -14,11 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1351740550791035289, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.67
       objectReference: {fileID: 0}
     - target: {fileID: 1351740550791035289, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 8.09
       objectReference: {fileID: 0}
     - target: {fileID: 1351740550791035289, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -49,8 +49,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1358529174140946411, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: detectionRadius
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1358529174140946411, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: targetTags.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1358529174140946411, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: 'targetTags.Array.data[0]'
@@ -64,13 +68,25 @@ PrefabInstance:
       propertyPath: 'targetTags.Array.data[2]'
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1675439901459023305, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e10c8755cc4014418c952b39ae28a6c, type: 2}
     - target: {fileID: 3190223910684755608, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: m_Name
       value: Villager
       objectReference: {fileID: 0}
+    - target: {fileID: 3190223910684755608, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: m_TagString
+      value: Villager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818748731444551144, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: actions.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: 'actions.Array.data[0]'
@@ -80,6 +96,14 @@ PrefabInstance:
       propertyPath: 'actions.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: 46fe4b5c068fbce4fb2f08351d564466, type: 2}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 42b5095a5f8e751459d958738cf5b3e8, type: 2}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b54a3ba0cd0e4c42a681c1518485f4f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
