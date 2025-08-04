@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9743fb9058817c346bc9437530a97c99, type: 3}
+  m_Name: ConnectArtifacts
+  m_EditorClassIdentifier: 
+  targetTag: 
+  consideration: {fileID: 11400000, guid: 1a15125f52103fe4f9fff5a5a4e7e02b, type: 2}
+  recipe: {fileID: 11400000, guid: 367c6a7c39bf3ee4691581ca6fe5d570, type: 2}
+  artifactPrefab: {fileID: 2380635951496772819, guid: 16d1a595ab30204498fe6a2ed65d5951, type: 3}
