@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6338227616013404985
+--- !u!1001 &2152731788667723652
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -50,36 +50,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1358529174140946411, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: targetTags.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1358529174140946411, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: 'targetTags.Array.data[0]'
-      value: Iron
-      objectReference: {fileID: 0}
-    - target: {fileID: 1358529174140946411, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
-      propertyPath: 'targetTags.Array.data[1]'
-      value: Wood
-      objectReference: {fileID: 0}
-    - target: {fileID: 1358529174140946411, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
-      propertyPath: 'targetTags.Array.data[2]'
-      value: Enemy
+      value: Villager
       objectReference: {fileID: 0}
     - target: {fileID: 3190223910684755608, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: m_Name
-      value: Villager
+      value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
-      propertyPath: actions.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
-      propertyPath: 'actions.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: e3412c2ebdc4e6a43b3cb69f486961b2, type: 2}
-    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
-      propertyPath: 'actions.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 46fe4b5c068fbce4fb2f08351d564466, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

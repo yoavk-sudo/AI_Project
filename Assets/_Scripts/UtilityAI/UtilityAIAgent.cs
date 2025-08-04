@@ -1,28 +1,42 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class UtilityAIAgent : MonoBehaviour
 {
-    public List<UtilityActionBase> actions = new List<UtilityActionBase>();
-
-    void Update()
+    public List<AIAction> actions = new List<AIAction>();
+    public Context Context;
+    public NavMeshAgent Agent;
+    public Sensor Sensor;
+    void Awake()
     {
-        UtilityActionBase bestAction = null;
-        float bestScore = float.MinValue;
+        Context = new Context(this);
 
         foreach (var action in actions)
         {
-            float score = action.GetScore();
-            if (score > bestScore)
+            action.Initialize(Context);
+        }
+    }
+
+    void Update()
+    {
+
+        AIAction bestAction = null;
+        float highestUtility = float.MinValue;
+
+        foreach (var action in actions)
+        {
+            float utility = action.CalculateUtility(Context);
+            if (utility > highestUtility)
             {
-                bestScore = score;
+                highestUtility = utility;
                 bestAction = action;
             }
         }
 
         if (bestAction != null)
         {
-            bestAction.Execute();
+            bestAction.Execute(Context);
         }
     }
 }
