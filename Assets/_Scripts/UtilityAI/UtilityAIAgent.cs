@@ -8,6 +8,9 @@ public class UtilityAIAgent : MonoBehaviour
     public Context Context;
     public NavMeshAgent Agent;
     public Sensor Sensor;
+
+    [ReadOnly]
+    public float readonlyTest;
     public bool IsIdle { get; private set; }
     void Awake()
     {

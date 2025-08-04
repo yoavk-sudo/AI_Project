@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dadf96155e3a784da74ab7c12046478, type: 3}
   m_Name: GoToWood
   m_EditorClassIdentifier: 
-  targetTag: Iron
+  targetTag: Wood
   consideration: {fileID: 11400000, guid: 4c57399316dbd454da83db80bd6130c6, type: 2}
