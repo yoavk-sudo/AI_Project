@@ -37,6 +37,7 @@ public class CollectResourceAction : AIAction
         isCollecting[context.brain] = false;
         Debug.Log($"<color=green>{context.brain.name} is collecting resources...</color>");
         yield return new WaitForSeconds(2f); // Simulate collection time
+        ResourceManager.Instance.GainResourceAmount(targetTag, 1);
         isCollecting[context.brain] = true;
     }
 }
