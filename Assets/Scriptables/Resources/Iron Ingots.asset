@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed1cb12683c7ff049ba1dd4e92ee109f, type: 3}
+  m_Script: {fileID: 11500000, guid: ae9e8404fd4642042969b24f8d530dd2, type: 3}
   m_Name: Iron Ingots
   m_EditorClassIdentifier: 
-  resourceName: Iron Ingots
+  resourceName: Iron
