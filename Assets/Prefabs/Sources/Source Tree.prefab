@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6179597840742821233}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75266, z: 29.53}
+  m_LocalPosition: {x: 0, y: 0.781, z: 0}
   m_LocalScale: {x: 1, y: 0.72966, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102,7 +102,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -124,7 +124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 650728973669798560, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
       propertyPath: m_TagString
-      value: Wood
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6877635406785242193, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
       propertyPath: m_LocalScale.y
@@ -179,40 +179,30 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 650728973669798560, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6654776002458840286}
+      addedObject: {fileID: 3873626266616227228}
   m_SourcePrefab: {fileID: 100100000, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
 --- !u!1 &1776114672187952533 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 650728973669798560, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
   m_PrefabInstance: {fileID: 1270538941824229173}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &6654776002458840286
-Rigidbody:
+--- !u!114 &3873626266616227228
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776114672187952533}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 64
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 360cfeec5cde16a4584fe38f38095daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResourceToSpawn: {fileID: -2945659799445886647, guid: 1bd1a83c5e2f7214ab9d81473a242a2a, type: 3}
+  ObjectToTurnOff: {fileID: 3572019701995058886}
+  TimeToTurnOff: 3
+  spawnedResource: {fileID: 0}
+  readyToCollect: 0
 --- !u!4 &5680051338087414628 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6877635406785242193, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}

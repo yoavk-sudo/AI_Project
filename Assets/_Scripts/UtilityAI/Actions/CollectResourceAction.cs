@@ -9,7 +9,7 @@ public class CollectResourceAction : AIAction
     [SerializeField] float timeToCollect;
     public override void Initialize(Context context)
     {
-        context.sensor.targetTags.Add(targetTag);
+        context.sensor.AddTag(targetTag);
         if (!isCollecting.ContainsKey((context.brain, this)))
         {
             isCollecting[(context.brain, this)] = true; // Initialize collecting state
@@ -28,14 +28,24 @@ public class CollectResourceAction : AIAction
     public override void Execute(Context context)
     {
         var target = context.sensor.GetClosestTarget(targetTag);
-        if (target == null) return;
+        if (target == null || (!target.parent.TryGetComponent<RenewableResourceHandler>(out var handler) || !handler.readyToCollect))
+        {
+            PerformActionOverTime(context, 2, null);
+            return;
+        }
         context.target = target;
-        PerformActionOverTime(context, timeToCollect, GainResources);
+        PerformActionOverTime(context, 2, () => GainResources(target));
     }
 
-    private void GainResources()
+    private void GainResources(Transform target)
     {
-        if(!ResourceManager.Instance)
+        if (target.parent.TryGetComponent<RenewableResourceHandler>(out var resourceHandler))
+        {
+            resourceHandler.CreateResource();
+            Debug.Log($"<color=green>Renewable resource collected from {target.name}</color>");
+            return; // If it's a renewable resource, handle it and exit
+        }
+        if (!ResourceManager.Instance)
         {
             return;
         }

@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Iron
   - Wood
+  - WoodResource
   layers:
   - Default
   - TransparentFX

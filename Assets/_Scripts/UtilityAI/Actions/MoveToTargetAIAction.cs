@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "UtilityAI/Actions/MoveToTargetAction")]
 public class MoveToTargetAIAction : AIAction {
     public override void Initialize(Context context) {
-        context.sensor.targetTags.Add(targetTag);
+        context.sensor.AddTag(targetTag);
     }
 
     public override void Execute(Context context) {

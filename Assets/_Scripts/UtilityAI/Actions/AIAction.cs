@@ -19,7 +19,6 @@ public abstract class AIAction : ScriptableObject {
     public IEnumerator DisableAction(Context context, float time, Action callback)
     {
         isCollecting[(context.brain, this)] = false;
-        Debug.Log($"<color=green>{context.brain.name} is collecting resources...</color>");
         yield return new WaitForSeconds(time); // Simulate collection time
         callback?.Invoke();
         isCollecting[(context.brain, this)] = true;
