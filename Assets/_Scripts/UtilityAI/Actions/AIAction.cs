@@ -8,7 +8,7 @@ public abstract class AIAction : ScriptableObject {
         // Optional initialization logic
     }
         
-    public float CalculateUtility(Context context) => consideration.Evaluate(context);
+    public virtual float CalculateUtility(Context context) => consideration.Evaluate(context);
         
     public abstract void Execute(Context context);
 }

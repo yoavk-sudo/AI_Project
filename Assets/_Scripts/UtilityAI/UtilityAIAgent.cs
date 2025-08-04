@@ -12,10 +12,11 @@ public class UtilityAIAgent : MonoBehaviour
     [ReadOnly]
     public List<float> readonlyEvaluations;
     public bool IsIdle { get; private set; }
-    void Awake()
+
+    void OnEnable()
     {
         Context = new Context(this);
-
+        readonlyEvaluations.Clear();
         foreach (var action in actions)
         {
             action.Initialize(Context);
