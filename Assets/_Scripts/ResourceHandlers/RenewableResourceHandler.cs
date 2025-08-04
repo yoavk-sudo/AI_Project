@@ -7,6 +7,8 @@ public class RenewableResourceHandler : MonoBehaviour
     [SerializeField] Transform ObjectToTurnOff;
     [SerializeField] float TimeToTurnOff = 3f;
     [SerializeField] ResourceHandler spawnedResource;
+    [SerializeField] Collider collider;
+    [SerializeField] Transform spawnPosition;
     public bool readyToCollect;
     private void OnEnable()
     {
@@ -14,15 +16,19 @@ public class RenewableResourceHandler : MonoBehaviour
     }
     public void CreateResource()
     {
-        spawnedResource = Instantiate(ResourceToSpawn, transform.position, Quaternion.identity);
+        spawnedResource = Instantiate(ResourceToSpawn, spawnPosition.position, Quaternion.identity);
         StartCoroutine(TurnOffAndOn());
     }
     IEnumerator TurnOffAndOn()
     {
+        var mask = collider.excludeLayers;
+        collider.excludeLayers = -1;
+        yield return new WaitForFixedUpdate();
         ObjectToTurnOff.gameObject.SetActive(false);
         readyToCollect = false;
         yield return new WaitForSeconds(TimeToTurnOff);
         yield return new WaitUntil(() => Vector3.Distance(spawnedResource.transform.position, transform.position) > 0.1f);
+        collider.excludeLayers = 0;
         ObjectToTurnOff.gameObject.SetActive(true);
         readyToCollect = true;
     }

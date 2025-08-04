@@ -43,7 +43,7 @@ public class Sensor : MonoBehaviour
 
     void ProcessTrigger(Collider other, Action<Transform> action)
     {
-        if (!other || other.CompareTag("Untagged")) return;
+        if (other.CompareTag("Untagged")) return;
 
         foreach (string t in targetTags)
         {
