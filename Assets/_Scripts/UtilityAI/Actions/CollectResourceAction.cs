@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "UtilityAI/Actions/CollectResourceAction")]
 public class CollectResourceAction : AIAction
 {
+    [SerializeField] float timeToCollect;
     public override void Initialize(Context context)
     {
         context.sensor.targetTags.Add(targetTag);
@@ -29,7 +30,7 @@ public class CollectResourceAction : AIAction
         var target = context.sensor.GetClosestTarget(targetTag);
         if (target == null) return;
         context.target = target;
-        PerformActionOverTime(context, 2, GainResources);
+        PerformActionOverTime(context, timeToCollect, GainResources);
     }
 
     private void GainResources()
