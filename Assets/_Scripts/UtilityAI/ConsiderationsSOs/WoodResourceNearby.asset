@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cfbd5a8dc9bf24c91f93789e66af13, type: 3}
   m_Name: WoodResourceNearby
   m_EditorClassIdentifier: 
-  maxDistance: 25
+  maxDistance: 100
   maxAngle: 360
   targetTag: WoodResource
   curve:
@@ -21,20 +21,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
+      inSlope: 16.471878
+      outSlope: 16.471878
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.060657322
+      value: 0.99913996
+      inSlope: 0.0067466833
+      outSlope: 0.0067466833
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.25971532
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
+      inSlope: 0.0009155715
+      outSlope: 0.0009155715
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
