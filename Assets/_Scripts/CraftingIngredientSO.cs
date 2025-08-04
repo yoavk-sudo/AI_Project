@@ -1,8 +1,8 @@
 using UnityEngine;
 
 [System.Serializable]
-public class CraftingIngredient
+public class CraftingIngredientSO
 {
-    public Resource resource;
+    public SourceSO resource;
     public int amount;
 }

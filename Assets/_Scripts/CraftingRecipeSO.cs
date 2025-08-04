@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CraftingRecipe", menuName = "Scriptable Objects/CraftingRecipe")]
-public class CraftingRecipe : ScriptableObject
+public class CraftingRecipeSO : ScriptableObject
 {
     public string recipeName;
-    public List<CraftingIngredient> ingredients;
+    public List<CraftingIngredientSO> ingredients;
     public int resultAmount = 1;
 }

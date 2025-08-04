@@ -1,10 +1,16 @@
 using UnityEngine;
 public class GatherResourceAction : UtilityActionBase
 {
+
     public override float GetScore()
     {
-        // Example: return a random score or base it on agent state
-        return Random.Range(0f, 1f);
+        // Example: Score is higher if wood is low in the global resource manager
+        int woodCount = ResourceManager.Instance.GetResourceCount("Wood");
+        if (woodCount < 10)
+            return 1.0f; // High priority
+        if (woodCount < 20)
+            return 0.5f; // Medium priority
+        return 0.1f; // Low priority
     }
 
     public override void Execute()

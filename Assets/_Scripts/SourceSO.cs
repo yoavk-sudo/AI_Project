@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Resource", menuName = "Scriptable Objects/Resource")]
-public class Resource : ScriptableObject
+public class SourceSO : ScriptableObject
 {
     public string resourceName;
 }
