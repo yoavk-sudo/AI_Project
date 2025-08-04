@@ -10,7 +10,7 @@ public class UtilityAIAgent : MonoBehaviour
     public Sensor Sensor;
 
     [ReadOnly]
-    public float readonlyTest;
+    public List<float> readonlyEvaluations;
     public bool IsIdle { get; private set; }
     void Awake()
     {
@@ -19,6 +19,7 @@ public class UtilityAIAgent : MonoBehaviour
         foreach (var action in actions)
         {
             action.Initialize(Context);
+            readonlyEvaluations.Add(0f); // Initialize with some default values
         }
     }
 
@@ -36,6 +37,7 @@ public class UtilityAIAgent : MonoBehaviour
                 highestUtility = utility;
                 bestAction = action;
             }
+            readonlyEvaluations[actions.IndexOf(action)] = utility;
         }
 
         if (bestAction != null)
