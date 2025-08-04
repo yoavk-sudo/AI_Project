@@ -2282,6 +2282,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2388492146260245936, guid: 757809f4690f030429d6c6aea294167c, type: 3}
+      propertyPath: m_TagString
+      value: Crystal
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383363075196267914, guid: 757809f4690f030429d6c6aea294167c, type: 3}
+      propertyPath: m_TagString
+      value: Crystal
+      objectReference: {fileID: 0}
     - target: {fileID: 8597440445071952705, guid: 757809f4690f030429d6c6aea294167c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18
@@ -4142,9 +4150,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Source Crystals
       objectReference: {fileID: 0}
-    - target: {fileID: 2388492146260245936, guid: 757809f4690f030429d6c6aea294167c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 3383363075196267914, guid: 757809f4690f030429d6c6aea294167c, type: 3}
+      propertyPath: m_TagString
+      value: Crystal
       objectReference: {fileID: 0}
     - target: {fileID: 8597440445071952705, guid: 757809f4690f030429d6c6aea294167c, type: 3}
       propertyPath: m_LocalPosition.x
