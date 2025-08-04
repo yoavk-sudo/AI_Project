@@ -45,10 +45,5 @@ public class CollectResourceAction : AIAction
             Debug.Log($"<color=green>Renewable resource collected from {target.name}</color>");
             return; // If it's a renewable resource, handle it and exit
         }
-        if (!ResourceManager.Instance)
-        {
-            return;
-        }
-        ResourceManager.Instance.GainResourceAmount(targetTag, 1);
     }
 }

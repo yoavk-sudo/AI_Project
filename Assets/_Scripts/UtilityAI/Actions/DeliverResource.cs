@@ -26,9 +26,16 @@ public class DeliverResource : MoveToTargetAIAction
             var obj = CollectResourceObjectAction.AgentResourcePairs[context.brain];
             obj.transform.SetParent(null);
             DeliveredResources.Add(obj);
-            obj.tag = "Untagged";
             DeliveredResources.RemoveAll(r => r == null);
+            var resName = obj.resourceName;
             CollectResourceObjectAction.AgentResourcePairs.Remove(context.brain);
+            Destroy(obj.gameObject);
+
+            if (!ResourceManager.Instance)
+            {
+                return;
+            }
+            ResourceManager.Instance.GainResourceAmount(resName, 1);
         }
     }
 }

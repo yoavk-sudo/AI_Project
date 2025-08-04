@@ -38,7 +38,14 @@ public class ResourceManager : MonoBehaviour
     }
     public void GainResourceAmount(string resourceName, int gainedAmount)
     {
-        _resourceCounts[resourceName] += gainedAmount;
+        if (_resourceCounts.TryGetValue(resourceName, out int currentCount))
+        {
+            _resourceCounts[resourceName] = currentCount + gainedAmount;
+        }
+        else
+        {
+            _resourceCounts[resourceName] = gainedAmount; // Initialize if not present
+        }
         UpdateResourceEvent?.Invoke(resourceName, _resourceCounts[resourceName]);
     }
     //dictionary to hold resource counts

@@ -61,7 +61,7 @@ public class Sensor : MonoBehaviour
         Transform closestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
-
+        detectedObjects.RemoveAll(t => t == null); // Clean up any null references
         foreach (Transform potentialTarget in detectedObjects)
         {
             if (potentialTarget.CompareTag(tag))
