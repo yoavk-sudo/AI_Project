@@ -3292,14 +3292,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2855486711919602164, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
-      propertyPath: m_BaseOffset
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477060670393863557, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.75
-      objectReference: {fileID: 0}
     - target: {fileID: 6477060670393863557, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.3
@@ -3340,29 +3332,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6477060670393863557, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6483788821643408375, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
-      propertyPath: targetTags.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6483788821643408375, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
-      propertyPath: 'targetTags.Array.data[0]'
-      value: blue
-      objectReference: {fileID: 0}
-    - target: {fileID: 6656644828687905237, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 55ed65a66c7c5bb4ab44643bb51138dd, type: 2}
     - target: {fileID: 7450237172097725060, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
       propertyPath: m_Name
       value: Drone
-      objectReference: {fileID: 0}
-    - target: {fileID: 7450237172097725060, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
