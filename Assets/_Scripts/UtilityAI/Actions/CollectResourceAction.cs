@@ -34,6 +34,10 @@ public class CollectResourceAction : AIAction
 
     private void GainResources()
     {
+        if(!ResourceManager.Instance)
+        {
+            return;
+        }
         ResourceManager.Instance.GainResourceAmount(targetTag, 1);
     }
 }
