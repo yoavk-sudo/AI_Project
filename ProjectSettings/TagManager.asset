@@ -10,6 +10,9 @@ TagManager:
   - Wood
   - WoodResource
   - BuildStation
+  - Crystal
+  - IronResource
+  - CrystalResource
   layers:
   - Default
   - TransparentFX

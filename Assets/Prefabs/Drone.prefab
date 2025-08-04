@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: actions.Array.size
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: 'actions.Array.data[0]'
@@ -87,11 +87,31 @@ PrefabInstance:
     - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: 'actions.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: 7573445d58d1e83419422f39f20cd555, type: 2}
+      objectReference: {fileID: 11400000, guid: c6dffbadd38e2ed45bcd97b991d17f25, type: 2}
     - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: 'actions.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: c6dffbadd38e2ed45bcd97b991d17f25, type: 2}
+      objectReference: {fileID: 11400000, guid: 7573445d58d1e83419422f39f20cd555, type: 2}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 737cfc8662544ca4f9a9e9a437dd083a, type: 2}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e00ab89b29c61a646966f0fdb7ac7298, type: 2}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e5d8a779e24b0ce4c8813f678b8df9f2, type: 2}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 83fdcf2c3c0079b4a8c701150b5c9d0d, type: 2}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c5df64d0a4a73b4f83f5bafc34f16c2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

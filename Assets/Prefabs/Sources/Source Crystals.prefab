@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1927489278737237417}
   m_Layer: 0
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: Crystal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,12 +102,43 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5567048687956698283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2481889767061268893}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2481889767061268893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5567048687956698283}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14.12, y: -0.668, z: 0.01}
+  m_LocalScale: {x: 2, y: 0.5, z: 1.3333334}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8597440445071952705}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2892008592544788240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -122,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 650728973669798560, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
       propertyPath: m_TagString
-      value: Crystal
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6877635406785242193, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
       propertyPath: m_LocalScale.x
@@ -182,43 +213,38 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6877635406785242193, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3166116015062990657}
+    - targetCorrespondingSourceObject: {fileID: 6877635406785242193, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2481889767061268893}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 650728973669798560, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9117115021973329503}
+      addedObject: {fileID: 7782585324804541303}
   m_SourcePrefab: {fileID: 100100000, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
 --- !u!1 &2388492146260245936 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 650728973669798560, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
   m_PrefabInstance: {fileID: 2892008592544788240}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &9117115021973329503
-Rigidbody:
+--- !u!114 &7782585324804541303
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2388492146260245936}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 360cfeec5cde16a4584fe38f38095daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ResourceToSpawn: {fileID: -2945659799445886647, guid: 773252fcd3ac64744a6a2a4e595c6644, type: 3}
+  ObjectToTurnOff: {fileID: 3166116015062990657}
+  TimeToTurnOff: 3
+  spawnedResource: {fileID: 0}
+  collider: {fileID: 1927489278737237417}
+  spawnPosition: {fileID: 2481889767061268893}
+  readyToCollect: 0
 --- !u!4 &8597440445071952705 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6877635406785242193, guid: ae880a9133226aa4cb1ac94f0dd85568, type: 3}
