@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4912ef18ae80e234a9ec02068ea360df, type: 3}
   m_Name: DeliverWoodResource
   m_EditorClassIdentifier: 
-  targetTag: WoodBuildStation
+  targetTag: BuildStation
   consideration: {fileID: 0}
