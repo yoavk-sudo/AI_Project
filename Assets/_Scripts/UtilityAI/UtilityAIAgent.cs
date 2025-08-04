@@ -8,6 +8,7 @@ public class UtilityAIAgent : MonoBehaviour
     public Context Context;
     public NavMeshAgent Agent;
     public Sensor Sensor;
+    public bool IsIdle { get; private set; }
     void Awake()
     {
         Context = new Context(this);
@@ -37,6 +38,7 @@ public class UtilityAIAgent : MonoBehaviour
         if (bestAction != null)
         {
             bestAction.Execute(Context);
+            IsIdle = bestAction is IdleAIAction;
         }
     }
 }
