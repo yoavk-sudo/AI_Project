@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6067a3cb6cb552c4f98cdfeea680b2a9, type: 3}
-  m_Name: GOTO Crystal Res
+  m_Name: Shield Craft Con
   m_EditorClassIdentifier: 
-  allMustBeNonZero: 0
+  allMustBeNonZero: 1
   operation: 1
   considerations:
-  - {fileID: 11400000, guid: d90bfce4825cc3e4ba91bdaeffda3a5b, type: 2}
-  - {fileID: 11400000, guid: 85b36f6e3091b4b4f8bacc8ef606c148, type: 2}
+  - {fileID: 11400000, guid: 090a1b5c58d254b41906d6d67b70c11b, type: 2}
+  - {fileID: 11400000, guid: 0b056b06d0c371949a05aa8693628df6, type: 2}

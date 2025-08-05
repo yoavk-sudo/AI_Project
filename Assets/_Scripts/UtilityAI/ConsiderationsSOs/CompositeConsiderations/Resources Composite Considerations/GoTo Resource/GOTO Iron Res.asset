@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GOTO Iron Res
   m_EditorClassIdentifier: 
   allMustBeNonZero: 1
-  operation: 0
+  operation: 1
   considerations:
   - {fileID: 11400000, guid: dde7fdf982693bf448318c3b5743d1b5, type: 2}
   - {fileID: 11400000, guid: 6fa2382d2bdae9e49ac184b0118fe2a2, type: 2}

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9743fb9058817c346bc9437530a97c99, type: 3}
-  m_Name: CraftStaff
+  m_Name: ConnectArtifacts
   m_EditorClassIdentifier: 
   targetTag: 
-  consideration: {fileID: 11400000, guid: a78c12448b4db3143bd3139bc83b579b, type: 2}
-  recipe: {fileID: 11400000, guid: 5e44875bfa826694e929a5f403b4367d, type: 2}
-  artifactPrefab: {fileID: 8656156538020178527, guid: 0eeb03166f35606478afa2ccba642889, type: 3}
+  consideration: {fileID: 11400000, guid: 8f366a82214de50499fc96b028de2130, type: 2}
+  recipe: {fileID: 11400000, guid: 367c6a7c39bf3ee4691581ca6fe5d570, type: 2}
+  artifactPrefab: {fileID: 2380635951496772819, guid: 16d1a595ab30204498fe6a2ed65d5951, type: 3}

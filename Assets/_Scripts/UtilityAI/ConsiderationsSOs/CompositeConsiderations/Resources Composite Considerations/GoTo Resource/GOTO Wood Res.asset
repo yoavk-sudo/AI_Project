@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GOTO Wood Res
   m_EditorClassIdentifier: 
   allMustBeNonZero: 1
-  operation: 0
+  operation: 1
   considerations:
   - {fileID: 11400000, guid: 97295adb86e9f1e439cb785223077879, type: 2}
   - {fileID: 11400000, guid: 3af12131575b15b4b84cb9c7a2d275e5, type: 2}

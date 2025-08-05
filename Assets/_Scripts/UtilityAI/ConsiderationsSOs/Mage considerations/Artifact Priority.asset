@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9743fb9058817c346bc9437530a97c99, type: 3}
-  m_Name: ConnectArtifacts
+  m_Script: {fileID: 11500000, guid: 209e80ca73a34c04cb86b12fa509d0e7, type: 3}
+  m_Name: Artifact Priority
   m_EditorClassIdentifier: 
-  targetTag: 
-  consideration: {fileID: 11400000, guid: 1a15125f52103fe4f9fff5a5a4e7e02b, type: 2}
   recipe: {fileID: 11400000, guid: 367c6a7c39bf3ee4691581ca6fe5d570, type: 2}
-  artifactPrefab: {fileID: 2380635951496772819, guid: 16d1a595ab30204498fe6a2ed65d5951, type: 3}

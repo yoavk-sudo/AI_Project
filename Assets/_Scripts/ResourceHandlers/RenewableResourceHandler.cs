@@ -16,6 +16,7 @@ public class RenewableResourceHandler : MonoBehaviour
     }
     public void CreateResource()
     {
+        if (!readyToCollect) return;
         spawnedResource = Instantiate(ResourceToSpawn, spawnPosition.position, Quaternion.identity);
         StartCoroutine(TurnOffAndOn());
     }
