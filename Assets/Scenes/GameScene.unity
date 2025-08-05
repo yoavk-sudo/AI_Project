@@ -435,6 +435,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1541519547355513195, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
+      propertyPath: m_TagString
+      value: Villager
+      objectReference: {fileID: 0}
     - target: {fileID: 3162433745903107690, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.8
@@ -1998,12 +2002,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 48b1df2d411418f4699aa09801cadce3, type: 2}
     - target: {fileID: 1090525291431388701, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090525291431388701, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.7
       objectReference: {fileID: 0}
     - target: {fileID: 1090525291431388701, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.5
+      value: -12.96
       objectReference: {fileID: 0}
     - target: {fileID: 1097327112678152303, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
       propertyPath: targetTags.Array.size
@@ -2059,7 +2067,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3577539916661889308, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3577539916661889308, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
       propertyPath: m_TagString
@@ -2071,7 +2079,7 @@ PrefabInstance:
       objectReference: {fileID: 285383786}
     - target: {fileID: 8223181543147780130, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
       propertyPath: actions.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8223181543147780130, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
       propertyPath: 'actions.Array.data[0]'
@@ -2081,6 +2089,10 @@ PrefabInstance:
       propertyPath: 'actions.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: e3412c2ebdc4e6a43b3cb69f486961b2, type: 2}
+    - target: {fileID: 8223181543147780130, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
+      propertyPath: 'actions.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ad04b04b08b61942986fd5d1d56dcc0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3697,6 +3709,10 @@ PrefabInstance:
     - target: {fileID: 7450237172097725060, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
       propertyPath: m_Name
       value: Drone
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450237172097725060, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
+      propertyPath: m_TagString
+      value: Villager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

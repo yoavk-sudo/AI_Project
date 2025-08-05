@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3181dbfebf595774a873336275aaa50c, type: 3}
+  m_Name: EnemyAttack
+  m_EditorClassIdentifier: 
+  targetTag: Villager
+  consideration: {fileID: 11400000, guid: d58a40eb722b0fe49b11c2453445813b, type: 2}
+  damageAmount: 15
+  attackCooldown: 1
