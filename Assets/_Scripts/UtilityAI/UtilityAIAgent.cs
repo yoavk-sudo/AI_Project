@@ -11,6 +11,7 @@ public class UtilityAIAgent : MonoBehaviour
     public Context Context;
     public NavMeshAgent Agent;
     public Sensor Sensor;
+    public Health HealthComponent;
 
     [ReadOnly]
     public List<float> readonlyEvaluations;

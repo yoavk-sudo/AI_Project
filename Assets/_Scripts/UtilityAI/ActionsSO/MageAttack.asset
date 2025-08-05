@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dadf96155e3a784da74ab7c12046478, type: 3}
-  m_Name: AttackVillager
+  m_Script: {fileID: 11500000, guid: 3181dbfebf595774a873336275aaa50c, type: 3}
+  m_Name: MageAttack
   m_EditorClassIdentifier: 
-  targetTag: Villager
-  consideration: {fileID: 11400000, guid: 4c57399316dbd454da83db80bd6130c6, type: 2}
+  targetTag: Enemy
+  consideration: {fileID: 11400000, guid: 1899f5c3b7fadfc4a875104e25d07022, type: 2}
+  damageAmount: 50
+  attackCooldown: 5

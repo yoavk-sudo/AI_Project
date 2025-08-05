@@ -30,11 +30,11 @@ public class CollectResourceAction : AIAction
         var target = context.sensor.GetClosestTarget(targetTag);
         if (target == null || (!target.parent.TryGetComponent<RenewableResourceHandler>(out var handler) || !handler.readyToCollect))
         {
-            PerformActionOverTime(context, 2, null);
+            PerformActionOverTime(context, timeToCollect, null);
             return;
         }
         context.target = target;
-        PerformActionOverTime(context, 2, () => GainResources(target));
+        PerformActionOverTime(context, timeToCollect, () => GainResources(target));
     }
 
     private void GainResources(Transform target)
