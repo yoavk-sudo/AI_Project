@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class MetaAgentPlanner : MonoBehaviour
@@ -14,32 +15,46 @@ public class MetaAgentPlanner : MonoBehaviour
     private bool staffBuilt = false;
     private bool shieldBuilt = false;
 
-    [SerializeField] private MageAgent mage;
-    [SerializeField] private List<VillagerAgent> villagers;
-    [SerializeField] private List<DroneAgent> drones;
+    [Header("Agents")]
+    [SerializeField] private UtilityAIAgent mage;
+    [SerializeField] private List<UtilityAIAgent> villagers;
+    [SerializeField] private List<UtilityAIAgent> drones;
+    //[SerializeField] private MageAgent mage;
+    //[SerializeField] private List<VillagerAgent> villagers;
+    //[SerializeField] private List<DroneAgent> drones;
 
     private Queue<GOAPAction> actionQueue = new();
 
     private void Start()
     {
         //create spawner and refennce to instancited here instead of find.
-        villagers = new List<VillagerAgent>(FindObjectsByType<VillagerAgent>(FindObjectsSortMode.None));
-        drones = new List<DroneAgent>(FindObjectsByType<DroneAgent>(FindObjectsSortMode.None));
-        mage = FindAnyObjectByType<MageAgent>();
+        //villagers = new List<VillagerAgent>(FindObjectsByType<VillagerAgent>(FindObjectsSortMode.None));
+        //drones = new List<DroneAgent>(FindObjectsByType<DroneAgent>(FindObjectsSortMode.None));
+        //mage = FindAnyObjectByType<MageAgent>();
 
         PlanNextGoal();
+        if (actionQueue.Count > 0)
+        {
+            actionQueue.Peek().Execute();
+        }
     }
 
     private void Update()
     {
         if (actionQueue.Count > 0)
         {
-            var action = actionQueue.Peek();
-            if (action.CanExecute())
+            if (actionQueue.Peek().CheckCompletion())
             {
-                action.Execute();
                 actionQueue.Dequeue();
+                if(actionQueue.Count > 0)
+                {
+                    actionQueue.Peek().Execute();
+                }
             }
+        }
+        else
+        {
+            PlanNextGoal();
         }
     }
 
@@ -63,17 +78,17 @@ public class MetaAgentPlanner : MonoBehaviour
     {
         foreach (var ingredient in recipe.ingredients)
         {
-            int needed = ingredient.amount - resourceManager.GetResourceCount(ingredient.resource.resourceName);
-            for (int i = 0; i < needed; i++)
+            //int needed = ingredient.amount - resourceManager.GetResourceCount(ingredient.resource.resourceName);
+            //for (int i = 0; i < needed; i++)
             {
-                if (ingredient.resource.resourceName == "Oak Logs")
-                    actionQueue.Enqueue(new ChopTreeAction(resourceManager));
-                else if (ingredient.resource.resourceName == "Crystal Shards")
-                    actionQueue.Enqueue(new RefineCrystalAction(resourceManager));
+                if (ingredient.resource.resourceName == "Wood")
+                    actionQueue.Enqueue(new GatherWoodAction(resourceManager, ingredient.amount));
+                else if (ingredient.resource.resourceName == "Crystal")
+                    actionQueue.Enqueue(new GatherCrystalAction(resourceManager, ingredient.amount));
                 else
-                    actionQueue.Enqueue(new CollectIronAction(resourceManager));
+                    actionQueue.Enqueue(new GatherIronAction(resourceManager, ingredient.amount));
 
-                actionQueue.Enqueue(new DeliverToBuildSiteAction(buildLocation, drones, villagers));
+                //actionQueue.Enqueue(new DeliverToBuildSiteAction(buildLocation, drones, villagers));
             }
         }
 
@@ -90,70 +105,139 @@ public abstract class GOAPAction
 {
     public abstract bool CanExecute();
     public abstract void Execute();
+    public abstract bool CheckCompletion();
 }
 
 // Placeholder action implementations (real ones will require agent control)
-public class ChopTreeAction : GOAPAction
+public class GatherWoodAction : GOAPAction
 {
     private ResourceManager manager;
-    public ChopTreeAction(ResourceManager mgr) => manager = mgr;
+    private int amount;
+    private readonly string resourceName = "Wood";
+    public GatherWoodAction(ResourceManager mgr, int amountToGather)
+    {
+        manager = mgr;
+        amount = amountToGather;
+    }
+
     public override bool CanExecute() => true;
+
+    public override bool CheckCompletion()
+    {
+        if (manager.GetResourceCount(resourceName) >= amount)
+        {
+            GlobalUtilityValues.Instance.Deprioritize(resourceName);
+            return true;
+        }
+        return false;
+    }
+
     public override void Execute()
     {
-        
+        Debug.Log("Starting Meta Action: Gather Wood");
+        GlobalUtilityValues.Instance.Prioritize(resourceName);
     }
 }
 
-public class RefineCrystalAction : GOAPAction
+public class GatherCrystalAction : GOAPAction
 {
     private ResourceManager manager;
-    public RefineCrystalAction(ResourceManager mgr) => manager = mgr;
+    private int amount;
+    private readonly string resourceName = "Crystal";
+
+    public GatherCrystalAction(ResourceManager mgr, int amountToGather)
+    {
+        manager = mgr;
+        amount = amountToGather;
+    }
+
     public override bool CanExecute() => true;
+
+    public override bool CheckCompletion()
+    {
+        if (manager.GetResourceCount(resourceName) >= amount)
+        {
+            GlobalUtilityValues.Instance.Deprioritize(resourceName);
+            return true;
+        }
+        return false;
+    }
+
     public override void Execute()
     {
-
+        Debug.Log("Starting Meta Action: Gather Crystal");
+        GlobalUtilityValues.Instance.Prioritize(resourceName);
     }
 }
 
-public class CollectIronAction : GOAPAction
+public class GatherIronAction : GOAPAction
 {
     private ResourceManager manager;
-    public CollectIronAction(ResourceManager mgr) => manager = mgr;
+    private int amount;
+    private readonly string resourceName = "Iron";
+
+    public GatherIronAction(ResourceManager mgr, int amountToGather)
+    {
+        manager = mgr;
+        amount = amountToGather;
+    }
+
     public override bool CanExecute() => true;
+
+    public override bool CheckCompletion()
+    {
+        if (manager.GetResourceCount(resourceName) >= amount)
+        {
+            GlobalUtilityValues.Instance.Deprioritize(resourceName);
+            return true;
+        }
+        return false;
+    }
+
     public override void Execute()
     {
+        Debug.Log("Starting Meta Action: Gather Iron");
 
+        GlobalUtilityValues.Instance.Prioritize(resourceName);
     }
 }
 
-//This should be called every time a resource is prepared for delivery
+//This could be called every time a resource is prepared for delivery
 public class DeliverToBuildSiteAction : GOAPAction
 {
     private Transform buildLocation;
-    private List<DroneAgent> drones;
-    private List<VillagerAgent> villagers;
-    public DeliverToBuildSiteAction(Transform buildLoc, List<DroneAgent> dr, List<VillagerAgent> vl)
+    private List<UtilityAIAgent> drones;
+    private List<UtilityAIAgent> villagers;
+    public DeliverToBuildSiteAction(Transform buildLoc, List<UtilityAIAgent> dr, List<UtilityAIAgent> vl)
     {
         buildLocation = buildLoc;
         drones = dr;
         villagers = vl;
     }
     public override bool CanExecute() => true;
+
+    public override bool CheckCompletion()
+    {
+        return true;
+    }
+
     public override void Execute()
     {
+        Debug.Log("Starting Meta Action: Deliver");
+
         UtilityAIAgent agent = null;
-        foreach(DroneAgent droneAgent in drones)
+        foreach (UtilityAIAgent droneAgent in drones)
         {
-            if(droneAgent.IsIdle) { agent = droneAgent; break; }
+            if (droneAgent.IsIdle) { agent = droneAgent; break; }
         }
-        if(agent == null)
+        if (agent == null)
         {
             //get a nearby villager
             //agent.CarryResourceToBuild
         }
         else
         {
-            //activate drone
+            //send drone
             //agent.FlyToPickupLocation
         }
     }
@@ -162,17 +246,31 @@ public class DeliverToBuildSiteAction : GOAPAction
 public class BuildArtifactAction : GOAPAction
 {
     private CraftingRecipeSO recipe;
-    private MageAgent mage;
+    private UtilityAIAgent mage;
     private Transform buildLoc;
     private System.Action onComplete;
 
-    public BuildArtifactAction(CraftingRecipeSO r, MageAgent m, Transform b, System.Action onComplete)
+    public BuildArtifactAction(CraftingRecipeSO r, UtilityAIAgent m, Transform b, System.Action onComplete)
     {
         recipe = r; mage = m; buildLoc = b; this.onComplete = onComplete;
     }
     public override bool CanExecute() => true;
+
+    public override bool CheckCompletion()
+    {
+        //if(//artifact is built)
+        //{
+        //    onComplete.Invoke();
+        //    return true;
+        //}
+        return false;
+    }
+
     public override void Execute()
     {
+        Debug.Log("Starting Meta Action: Build Artifact");
+
+        //make the mage want to build artifact
         //mage.BuildArtifact(recipe);
         onComplete?.Invoke();
     }
@@ -180,16 +278,30 @@ public class BuildArtifactAction : GOAPAction
 
 public class ConnectArtifactsAction : GOAPAction
 {
-    private MageAgent mage;
+    private UtilityAIAgent mage;
     private Transform buildLoc;
-    public ConnectArtifactsAction(MageAgent m, Transform b) { mage = m; buildLoc = b; }
+    public ConnectArtifactsAction(UtilityAIAgent m, Transform b) { mage = m; buildLoc = b; }
     public override bool CanExecute() => true;
+
+    public override bool CheckCompletion()
+    {
+        //if(//artifact is built)
+        //{
+        //    return true;
+        //}
+        return false;
+
+    }
+
     public override void Execute()
     {
+        Debug.Log("Starting Meta Action: Connect Artifact");
+
+        //make the mage want to connect the artifacts
         //mage.ConnectArtifacts();
     }
 }
 
-public class MageAgent : UtilityAIAgent { }
-public class VillagerAgent : UtilityAIAgent { }
-public class DroneAgent : UtilityAIAgent { }
+//public class MageAgent : UtilityAIAgent { }
+//public class VillagerAgent : UtilityAIAgent { }
+//public class DroneAgent : UtilityAIAgent { }

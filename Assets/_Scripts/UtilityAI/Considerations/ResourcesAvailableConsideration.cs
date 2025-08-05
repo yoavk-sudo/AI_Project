@@ -12,7 +12,7 @@ public class ResourcesAvailableConsideration : Consideration
         if(!ResourceManager.Instance) return 0f; // If ResourceManager is not available, return 0 utility
         foreach (var resource in resources)
         {
-            var amountInResources = ResourceManager.Instance.GetResourceCount(resource.resource.name);
+            var amountInResources = ResourceManager.Instance.GetResourceCount(resource.resource.resourceName);
             if (resource.amount >= amountInResources)
             {
                 return 0f; // If any resource is not available, return 0 utility
