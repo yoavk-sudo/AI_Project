@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RefineCrystals
   m_EditorClassIdentifier: 
   targetTag: Crystal
-  consideration: {fileID: 11400000, guid: 1decf44e519fa654389d314b7430dd47, type: 2}
+  consideration: {fileID: 11400000, guid: 079efcaa30f87804a9206dfc7cc53f91, type: 2}
   timeToCollect: 4

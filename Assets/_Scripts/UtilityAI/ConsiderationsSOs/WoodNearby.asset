@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cfbd5a8dc9bf24c91f93789e66af13, type: 3}
   m_Name: WoodNearby
   m_EditorClassIdentifier: 
-  maxDistance: 10
+  maxDistance: 25
   maxAngle: 360
   targetTag: Wood
   curve:

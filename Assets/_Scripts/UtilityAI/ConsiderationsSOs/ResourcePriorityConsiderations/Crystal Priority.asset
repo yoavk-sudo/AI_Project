@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dadf96155e3a784da74ab7c12046478, type: 3}
-  m_Name: GoToCrystalResource
+  m_Script: {fileID: 11500000, guid: 7c44fdd06711f3e409a2a51cad5d2b45, type: 3}
+  m_Name: Crystal Priority
   m_EditorClassIdentifier: 
-  targetTag: CrystalResource
-  consideration: {fileID: 11400000, guid: d103681165fc70748841080a8be4ec1b, type: 2}
+  CraftingIngredientSO: {fileID: 11400000, guid: fb485489277c37544841a46ee68776f3, type: 2}

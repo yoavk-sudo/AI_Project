@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GoToIron
   m_EditorClassIdentifier: 
   targetTag: Iron
-  consideration: {fileID: 11400000, guid: 9f8c4d6d2feaacb4b9440fd5f03a3e27, type: 2}
+  consideration: {fileID: 11400000, guid: ffce2b794b99a7546b71e8b010b6d9cf, type: 2}

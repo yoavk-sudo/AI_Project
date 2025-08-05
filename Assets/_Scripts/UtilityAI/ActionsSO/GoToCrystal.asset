@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GoToCrystal
   m_EditorClassIdentifier: 
   targetTag: Crystal
-  consideration: {fileID: 11400000, guid: d882382940f0b39439f91d28f718f40a, type: 2}
+  consideration: {fileID: 11400000, guid: 9a2166d037b50e2449ee9c1437a6de9d, type: 2}

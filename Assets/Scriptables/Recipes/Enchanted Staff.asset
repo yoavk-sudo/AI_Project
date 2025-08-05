@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Enchanted Staff
   ingredients:
-  - resource: {fileID: 11400000, guid: 8e68c81952eca0a4aae63e5200c662d1, type: 2}
-    amount: 5
   - resource: {fileID: 11400000, guid: f037a0dd50fd679419b42ee878ccfce6, type: 2}
     amount: 3
+  - resource: {fileID: 11400000, guid: 8e68c81952eca0a4aae63e5200c662d1, type: 2}
+    amount: 5
   resultAmount: 1

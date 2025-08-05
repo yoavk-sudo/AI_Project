@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GoToIronResource
   m_EditorClassIdentifier: 
   targetTag: IronResource
-  consideration: {fileID: 11400000, guid: 6fa2382d2bdae9e49ac184b0118fe2a2, type: 2}
+  consideration: {fileID: 11400000, guid: a492bef887fbd8249a9338b77e44a31c, type: 2}

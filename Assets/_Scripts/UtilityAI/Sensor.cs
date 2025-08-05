@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -34,11 +35,15 @@ public class Sensor : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         ProcessTrigger(other, t => detectedObjects.Add(t));
+        detectedObjects.RemoveAll(t => t == null); // Clean up any null references
+        detectedObjects = detectedObjects.Distinct().ToList();
     }
 
     void OnTriggerExit(Collider other)
     {
         ProcessTrigger(other, t => detectedObjects.Remove(t));
+        detectedObjects.RemoveAll(t => t == null); // Clean up any null references
+        detectedObjects = detectedObjects.Distinct().ToList();
     }
 
     void ProcessTrigger(Collider other, Action<Transform> action)

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ChopWood
   m_EditorClassIdentifier: 
   targetTag: Wood
-  consideration: {fileID: 11400000, guid: 49e6f0c42a2812946a709a255166d287, type: 2}
+  consideration: {fileID: 11400000, guid: 928f4e55f0920b4429db494bd82580bb, type: 2}
   timeToCollect: 2

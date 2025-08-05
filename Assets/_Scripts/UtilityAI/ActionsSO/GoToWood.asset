@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GoToWood
   m_EditorClassIdentifier: 
   targetTag: Wood
-  consideration: {fileID: 11400000, guid: c82f1641789c1cf4a8edd8f50cf9dc11, type: 2}
+  consideration: {fileID: 11400000, guid: a09f13ac8b51ab540bac6895a18df3aa, type: 2}

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CollectIron
   m_EditorClassIdentifier: 
   targetTag: Iron
-  consideration: {fileID: 11400000, guid: 13249d9f91a37d246b229c7a5cb8cdeb, type: 2}
+  consideration: {fileID: 11400000, guid: 53aa961ca9dbf4f48b414c3c663c15a5, type: 2}
   timeToCollect: 0
