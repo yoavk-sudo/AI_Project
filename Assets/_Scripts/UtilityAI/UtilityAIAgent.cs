@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class UtilityAIAgent : MonoBehaviour
 {
+    [Header("AI Components")]
     public List<AIAction> actions = new List<AIAction>();
     public Context Context;
     public NavMeshAgent Agent;
@@ -26,7 +29,7 @@ public class UtilityAIAgent : MonoBehaviour
 
     void Update()
     {
-
+        
         AIAction bestAction = null;
         float highestUtility = float.MinValue;
 
