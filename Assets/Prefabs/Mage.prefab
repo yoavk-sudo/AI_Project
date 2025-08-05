@@ -50,8 +50,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3190223910684755608, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: m_Name
-      value: Agent
+      value: Mage
       objectReference: {fileID: 0}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: actions.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e3412c2ebdc4e6a43b3cb69f486961b2, type: 2}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e627a7518ddf1e14d8c3e0d8c89861c4, type: 2}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 95379da1a07b6d24b9868cfd336da07c, type: 2}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e5855e385f7467447a71086facad6e43, type: 2}
+    - target: {fileID: 8070052699810572198, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: 'actions.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f1628847b423a974ea905aa754040c70, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

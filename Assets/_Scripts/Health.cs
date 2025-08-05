@@ -4,6 +4,9 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] int health = 100;
+    [SerializeField, Min(1)] int numberOfHeals = 3;
+
+    public int HP { get => health; }
 
     public void TakeDamage(int damage)
     {
@@ -21,6 +24,12 @@ public class Health : MonoBehaviour
 
     public void Heal(int amount)
     {
+        if(numberOfHeals <= 0)
+        {
+            Debug.Log($"<color=orange>No heals left for {gameObject.name}</color>");
+            return;
+        }
+        numberOfHeals--;
         health += amount;
     }
 }
