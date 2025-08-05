@@ -479,6 +479,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 8b5ae88f0e7edbd498096869793ae070, type: 2}
+    - target: {fileID: 5847868701093819025, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
+      propertyPath: health
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6259992824197210197, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
       propertyPath: actions.Array.size
       value: 3
@@ -3622,6 +3626,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2533223636813971838, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
+      propertyPath: health
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2855486711919602164, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
       propertyPath: m_AutoBraking
       value: 0
