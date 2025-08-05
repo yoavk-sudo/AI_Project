@@ -107,8 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6425802693f745e46947df906a2eaa92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRadius: 5
+  detectionRadius: 25
   targetTags: []
+  detectedObjects: []
 --- !u!1 &9059041126787056257
 GameObject:
   m_ObjectHideFlags: 0
