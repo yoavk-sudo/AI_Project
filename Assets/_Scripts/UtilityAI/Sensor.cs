@@ -33,7 +33,7 @@ public class Sensor : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        ProcessTrigger(other, t => detectedObjects.Add(t));
+        ProcessTrigger(other, t => { if (!detectedObjects.Contains(t)) detectedObjects.Add(t); });
     }
 
     void OnTriggerExit(Collider other)

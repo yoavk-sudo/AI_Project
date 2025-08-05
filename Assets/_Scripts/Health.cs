@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     [SerializeField, Min(1)] int numberOfHeals = 3;
 
     public int HP { get => health; }
+    public int NumberOfHeals { get => numberOfHeals; }
 
     public void TakeDamage(int damage)
     {
@@ -22,14 +23,15 @@ public class Health : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void Heal(int amount)
+    public bool Heal(int amount)
     {
         if(numberOfHeals <= 0)
         {
             Debug.Log($"<color=orange>No heals left for {gameObject.name}</color>");
-            return;
+            return false;
         }
         numberOfHeals--;
         health += amount;
+        return true;
     }
 }
