@@ -492,24 +492,16 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6259992824197210197, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
-      propertyPath: actions.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6259992824197210197, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
-      propertyPath: 'actions.Array.data[0]'
+      propertyPath: HealthComponent
       value: 
-      objectReference: {fileID: 11400000, guid: e3412c2ebdc4e6a43b3cb69f486961b2, type: 2}
-    - target: {fileID: 6259992824197210197, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
-      propertyPath: 'actions.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: e627a7518ddf1e14d8c3e0d8c89861c4, type: 2}
-    - target: {fileID: 6259992824197210197, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
-      propertyPath: 'actions.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 95379da1a07b6d24b9868cfd336da07c, type: 2}
+      objectReference: {fileID: 1848714482}
     - target: {fileID: 8896012986200381017, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
       propertyPath: health
-      value: 20
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8896012986200381017, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
+      propertyPath: numberOfHeals
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2498,6 +2490,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d548da73b462314ea6d5a0aed5ca7f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1389459234 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 681416068354647478, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
+  m_PrefabInstance: {fileID: 2024094439}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e503cd2250665f648b5df951a9b574ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1428962909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3422,6 +3425,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d548da73b462314ea6d5a0aed5ca7f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1848714482 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8896012986200381017, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
+  m_PrefabInstance: {fileID: 285389626}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e503cd2250665f648b5df951a9b574ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1903215233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3430,22 +3444,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4985378656703597778, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
-      propertyPath: detectionRadius
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4985378656703597778, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
-      propertyPath: targetTags.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4985378656703597778, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
-      propertyPath: 'targetTags.Array.data[0]'
-      value: Iron
-      objectReference: {fileID: 0}
-    - target: {fileID: 4985378656703597778, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
-      propertyPath: 'targetTags.Array.data[1]'
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4987649386733318816, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3658,10 +3656,18 @@ PrefabInstance:
       propertyPath: health
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 681416068354647478, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
+      propertyPath: numberOfHeals
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2533223636813971838, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
       propertyPath: health
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 2657100341639451578, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
+      propertyPath: HealthComponent
+      value: 
+      objectReference: {fileID: 1389459234}
     - target: {fileID: 2855486711919602164, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
       propertyPath: m_AutoBraking
       value: 0

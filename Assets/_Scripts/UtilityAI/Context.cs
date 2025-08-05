@@ -7,7 +7,8 @@ public class Context {
     public NavMeshAgent agent;
     public Transform target;
     public Sensor sensor;
-        
+    public Health healthComponent;
+
     readonly Dictionary<string, object> data = new();
 
     public Context(UtilityAIAgent brain) {
@@ -16,6 +17,7 @@ public class Context {
         this.brain = brain;
         this.agent = brain.Agent;
         this.sensor = brain.Sensor;
+        this.healthComponent = brain.HealthComponent;
     }
         
     public T GetData<T>(string key) => data.TryGetValue(key, out var value) ? (T)value : default;

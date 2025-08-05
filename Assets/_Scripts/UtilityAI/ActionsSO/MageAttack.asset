@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: Enemy
   consideration: {fileID: 11400000, guid: 1899f5c3b7fadfc4a875104e25d07022, type: 2}
-  damageAmount: 10
-  attackCooldown: 1.5
+  damageAmount: 50
+  attackCooldown: 5
