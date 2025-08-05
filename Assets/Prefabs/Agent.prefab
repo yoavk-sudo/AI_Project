@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7818748731444551144}
   - component: {fileID: 4358024395148172191}
   - component: {fileID: 1358529174140946411}
+  - component: {fileID: -4443473042653539926}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -110,6 +111,19 @@ MonoBehaviour:
   detectionRadius: 25
   targetTags: []
   detectedObjects: []
+--- !u!114 &-4443473042653539926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3190223910684755608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e503cd2250665f648b5df951a9b574ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1 &9059041126787056257
 GameObject:
   m_ObjectHideFlags: 0

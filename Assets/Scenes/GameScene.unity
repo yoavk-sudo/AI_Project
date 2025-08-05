@@ -503,6 +503,10 @@ PrefabInstance:
       propertyPath: 'actions.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: 95379da1a07b6d24b9868cfd336da07c, type: 2}
+    - target: {fileID: 8896012986200381017, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
+      propertyPath: health
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3634,6 +3638,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 681416068354647478, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
+      propertyPath: health
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2533223636813971838, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
       propertyPath: health
       value: 50
