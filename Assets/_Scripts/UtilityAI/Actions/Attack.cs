@@ -23,10 +23,16 @@ public class Attack : AIAction
         }
         timer = 0;
         var target = context.sensor.GetClosestTarget(targetTag);
-        if(target && target.TryGetComponent<Health>(out var targetHealth))
+        Debug.Log($"<color=orange>Executing Attack action on target: {target?.name}</color>");
+        if (target && target.TryGetComponent<Health>(out var targetHealth))
         {
             targetHealth.TakeDamage(damageAmount);
             Debug.Log($"<color=red>Attacked {target.name} for {damageAmount} damage</color>");
+        }
+        else if(target && target.parent.TryGetComponent(out Health targetHP))
+        {
+            targetHP.TakeDamage(damageAmount);
+            Debug.Log($"<color=red>Attacked {target.parent.name} for {damageAmount} damage</color>");
         }
         else
         {
