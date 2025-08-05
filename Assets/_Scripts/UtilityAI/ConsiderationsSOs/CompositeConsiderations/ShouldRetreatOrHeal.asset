@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6067a3cb6cb552c4f98cdfeea680b2a9, type: 3}
+  m_Name: ShouldRetreatOrHeal
+  m_EditorClassIdentifier: 
+  allMustBeNonZero: 0
+  operation: 6
+  considerations:
+  - {fileID: 11400000, guid: 76aa1670a8afca94f84b480afecf2463, type: 2}
+  - {fileID: 11400000, guid: 5eb448896922b2a40a2f03e47469d9e5, type: 2}

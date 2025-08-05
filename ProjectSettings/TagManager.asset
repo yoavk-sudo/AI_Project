@@ -13,6 +13,7 @@ TagManager:
   - Crystal
   - IronResource
   - CrystalResource
+  - Potion
   layers:
   - Default
   - TransparentFX

@@ -4,10 +4,24 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] int health = 100;
-    [SerializeField, Min(1)] int numberOfHeals = 3;
+    [SerializeField, Min(0)] int numberOfHeals = 3;
 
     public int HP { get => health; }
     public int NumberOfHeals { get => numberOfHeals; }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Potion"))
+        {
+            if(Vector3.Distance(transform.position, other.transform.position) > 2f)
+            {
+                return;
+            }
+            Debug.Log($"<color=green>{gameObject.name} has picked up a potion!</color>");
+            GainPotion();
+            Destroy(other.gameObject);
+        }
+    }
 
     public void TakeDamage(int damage)
     {
@@ -33,5 +47,11 @@ public class Health : MonoBehaviour
         numberOfHeals--;
         health += amount;
         return true;
+    }
+
+    private void GainPotion()
+    {
+        numberOfHeals++;
+        Debug.Log($"<color=green>Gained a potion! {gameObject.name} now has {numberOfHeals} heals left.</color>");
     }
 }

@@ -52,6 +52,7 @@ MonoBehaviour:
   actions: []
   Agent: {fileID: 7818748731444551144}
   Sensor: {fileID: 1358529174140946411}
+  HealthComponent: {fileID: 0}
   readonlyEvaluations: []
 --- !u!195 &7818748731444551144
 NavMeshAgent:
@@ -124,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  numberOfHeals: 0
 --- !u!1 &9059041126787056257
 GameObject:
   m_ObjectHideFlags: 0
