@@ -17,7 +17,7 @@ public class UtilityAIAgent : MonoBehaviour
     public List<float> readonlyEvaluations;
     public bool IsIdle { get; private set; }
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         Context = new Context(this);
         readonlyEvaluations.Clear();
@@ -28,7 +28,7 @@ public class UtilityAIAgent : MonoBehaviour
         }
     }
 
-    void Update()
+    protected virtual void Update()
     {
         
         AIAction bestAction = null;

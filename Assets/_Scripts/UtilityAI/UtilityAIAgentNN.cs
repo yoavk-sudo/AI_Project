@@ -2,15 +2,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class UtilityAIAgentNN : UtilityAIAgent
 {
     [Header("Neural Network")]
+    [SerializeField] private int numberOfLayers = 32;
     public NN neuralNetwork;
-
-    [ReadOnly]
-    public List<float> readonlyEvaluations;
 
     public bool IsIdle { get; private set; }
     public float Fitness { get; private set; }
@@ -18,24 +15,17 @@ public class UtilityAIAgentNN : UtilityAIAgent
     public float MutationAmount { get; private set; } = 0.8f;
     public float MutationChance { get; private set; } = 0.3f;
     private bool isMutated = false;
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        Context = new Context(this);
-        readonlyEvaluations.Clear();
-
-        foreach (var action in actions)
-        {
-            action.Initialize(Context);
-            readonlyEvaluations.Add(0f); // placeholder for utility scores
-        }
-
+        base.OnEnable();
         if (neuralNetwork == null)
         {
             neuralNetwork = GetComponent<NN>();
         }
+        neuralNetwork.InitializeNetwork(actions.Count, numberOfLayers, actions.Count);
     }
 
-    private void Update()
+    protected override void Update()
     {
         //only do this once
         if (!isMutated)
@@ -43,6 +33,11 @@ public class UtilityAIAgentNN : UtilityAIAgent
             //call mutate function to mutate the neural network
             MutateCreature();
             isMutated = true;
+        }
+        foreach (var action in actions)
+        {
+            float utility = action.CalculateUtility(Context);
+            readonlyEvaluations[actions.IndexOf(action)] = utility;
         }
         float[] inputs = GatherNNInputs();
 
@@ -67,12 +62,7 @@ public class UtilityAIAgentNN : UtilityAIAgent
         // Execute the chosen action
         bestAction.Execute(Context);
         IsIdle = bestAction is IdleAIAction;
-
-        // For debugging and visualization
-        for (int i = 0; i < actions.Count; i++)
-        {
-            readonlyEvaluations[i] = (i == bestActionIndex) ? 1f : 0f;
-        }
+      
     }
 
     private float[] GatherNNInputs()

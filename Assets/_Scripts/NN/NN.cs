@@ -11,7 +11,6 @@ public class NN : MonoBehaviour
     void Awake()
     {
         InitializeNetwork(7, 32, 1);
-        UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
     }
 
     public void InitializeNetwork(int inputs, int hidden, int outputs)
@@ -31,18 +30,20 @@ public class NN : MonoBehaviour
             if (i == 0)
             {
                 layers[i].Forward(inputs);
-                layers[i].Activation();
+                layers[i].Activation(); // hidden layer
             }
             else if (i == layers.Length - 1)
             {
-                layers[i].Forward(layers[i - 1].nodeArray); // no activation on last layer
+                layers[i].Forward(layers[i - 1].nodeArray);
+                layers[i].SigmoidActivation(); // output layer → sigmoid to clamp 0–1
             }
             else
             {
                 layers[i].Forward(layers[i - 1].nodeArray);
-                layers[i].Activation();
+                layers[i].Activation(); // hidden layer
             }
         }
+
         return layers[^1].nodeArray;
     }
 
@@ -84,6 +85,13 @@ public class NN : MonoBehaviour
                     nodeArray[i] += weightsArray[i, j] * inputsArray[j];
                 }
                 nodeArray[i] += biasesArray[i];
+            }
+        }
+        public void SigmoidActivation()
+        {
+            for (int i = 0; i < nodeArray.Length; i++)
+            {
+                nodeArray[i] = 1f / (1f + Mathf.Exp(-nodeArray[i]));
             }
         }
 
