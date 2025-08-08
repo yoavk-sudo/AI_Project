@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -5,19 +6,29 @@ using UnityEngine;
 
 public class TrainingManager : MonoBehaviour
 {
-    [Header("Training Settings")]
+    [Header("prefabs")]
     [SerializeField] private UtilityAIAgentNN _agentPrefab;
-    [SerializeField] private Transform[] _spawnPoints;
+    [SerializeField] private GameObject _potionPrefab;
+    [Header("holders")]
+    [SerializeField] private Transform _potionsHolder;
+    [SerializeField] private Transform _enemiesHolder;
+    [Header("Spawn Points")]
+    [SerializeField] private Transform[] _enemySpawnPoints;
+    [SerializeField] private Transform[] _potionsSpawnPoints;
+    [Header("Training Settings")]
     [SerializeField] private float _sessionTime = 30f;
     [SerializeField] private float _mutationChance = 0.05f;
     [SerializeField] private float _mutationStrength = 0.3f;
 
     private float _timer;
+    [Header("Readonly for monitoring")]
     [ReadOnly , SerializeField] private int _generation;
     [ReadOnly , SerializeField] private List<UtilityAIAgentNN> _agents = new List<UtilityAIAgentNN>();
+    private List<GameObject> _potions = new List<GameObject>();
 
     private void Start()
     {
+        SpawnNewPotions();
         CreateInitialPopulation();
     }
 
@@ -27,8 +38,19 @@ public class TrainingManager : MonoBehaviour
 
         if (_timer >= _sessionTime)
         {
+            SpawnNewPotions();
             EvolvePopulation();
             _timer = 0f;
+        }
+    }
+    private void SpawnNewPotions()
+    {
+        foreach (var potion in _potions)
+            Destroy(potion.gameObject);
+        foreach (var potionSpawnPoint in _potionsSpawnPoints)
+        {
+            GameObject potion = Instantiate(_potionPrefab, potionSpawnPoint.position, Quaternion.identity, _potionsHolder);
+            _potions.Add(potion);
         }
     }
 
@@ -37,7 +59,7 @@ public class TrainingManager : MonoBehaviour
         _agents.Clear();
         _generation = 1;
 
-        for (int i = 0; i < _spawnPoints.Length; i++)
+        for (int i = 0; i < _enemySpawnPoints.Length; i++)
         {
             SpawnAgent(i);
         }
@@ -45,7 +67,7 @@ public class TrainingManager : MonoBehaviour
 
     private void SpawnAgent(int index, UtilityNNet brainToCopy = null)
     {
-        Transform spawn = _spawnPoints[index % _spawnPoints.Length];
+        Transform spawn = _enemySpawnPoints[index % _enemySpawnPoints.Length];
         UtilityAIAgentNN agent = Instantiate(_agentPrefab, spawn.position, spawn.rotation);
 
         agent.neuralNetwork = new UtilityNNet();
@@ -83,9 +105,9 @@ public class TrainingManager : MonoBehaviour
         _generation++;
 
         // How many elites to preserve
-        int eliteCount = Mathf.Min(3, _spawnPoints.Length);
+        int eliteCount = Mathf.Min(3, _enemySpawnPoints.Length);
 
-        for (int i = 0; i < _spawnPoints.Length; i++)
+        for (int i = 0; i < _enemySpawnPoints.Length; i++)
         {
             // Choose which elite to base this brain on
             int eliteIdx = i % eliteCount;

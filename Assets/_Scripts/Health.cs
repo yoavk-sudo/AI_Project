@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
             }
             //Debug.Log($"<color=green>{gameObject.name} has picked up a potion!</color>");
             GainPotion();
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
     }
 

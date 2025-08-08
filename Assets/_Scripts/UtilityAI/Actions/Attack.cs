@@ -26,20 +26,28 @@ public class Attack : AIAction
         var target = context.sensor.GetClosestTarget(targetTag);
         if (target)
         {
-            if(Vector3.Distance(context.brain.transform.position , target.position) > attackDistance)
+            if (target == context.agent.transform || (context.agent.transform.childCount > 0 && target == context.agent.transform.GetChild(0)))
+                return;//ignore itself.
+            Vector3 attackerPos = context.brain.transform.position;
+            attackerPos.y = 0; // Ignore vertical distance for attack range
+            Vector3 targetPos = target.position;
+            targetPos.y = 0; // Ignore vertical distance for attack range
+            if (Vector3.Distance(attackerPos, targetPos) > attackDistance)
             {
                 //attack missed
                 Debug.Log("missed attack");
                 context.brain.OnAttackMissedAction?.Invoke();
                 return;
             }
+            else
+                Debug.Log(Vector3.Distance(attackerPos, targetPos));
             if (target.TryGetComponent<Health>(out var targetHealth))
             {
                 targetHealth.TakeDamage(damageAmount, context.brain.OnEnemyKilledAction);
                 context.brain.OnAttackLandedAction?.Invoke();
                 //Debug.Log($"<color=red>Attacked {target.name} for {damageAmount} damage</color>");
             }
-            else if(target.parent.TryGetComponent(out Health targetHP))
+            else if (target.parent.TryGetComponent(out Health targetHP))
             {
                 targetHP.TakeDamage(damageAmount, context.brain.OnEnemyKilledAction);
                 context.brain.OnAttackLandedAction?.Invoke();
