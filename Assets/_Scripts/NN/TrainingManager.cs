@@ -107,7 +107,7 @@ public class TrainingManager : MonoBehaviour
             if (!Directory.Exists(resourcesPath))
                 Directory.CreateDirectory(resourcesPath);
 
-            bestBrains[0].SaveToFile(Path.Combine(resourcesPath,$"Brain_{_generation}")); // Save the best brain to a JSON file
+            bestBrains[0].SaveToFile(Path.Combine(resourcesPath,$"Brain_{_generation}.json")); // Save the best brain to a JSON file
             // Every 20 generations, increase population size
             Debug.Log("save brain to json file");
             #endif

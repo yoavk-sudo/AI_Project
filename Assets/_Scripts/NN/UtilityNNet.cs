@@ -220,54 +220,59 @@ public class UtilityNNet
         }
     }
 
-// --- JSON SAVE ---
+    // --- JSON SAVE ---
     public string ToJson(bool prettyPrint = false)
     {
-    var dto = new UtilityNNetDTO
-    {
-        inputCount = _inputCount,
-        outputCount = _outputCount,
-        hiddenLayerCount = _hiddenLayerCount,
-        hiddenNeuronCount = _hiddenNeuronCount,
-        useSoftmax = UseSoftmax,
-        initRange = InitRange,
-
-        W = new WeightLayerDTO[_W.Length],
-        B = new float[_B.Length][]
-    };
-
-    // Weights -> DTO
-    for (int l = 0; l < _W.Length; l++)
-    {
-        int rows = _W[l].GetLength(0);
-        int cols = _W[l].GetLength(1);
-        var wDto = new WeightLayerDTO
+        var dto = new UtilityNNetDTO
         {
-            rows = rows,
-            cols = cols,
-            data = new float[rows][]
+            inputCount = _inputCount,
+            outputCount = _outputCount,
+            hiddenLayerCount = _hiddenLayerCount,
+            hiddenNeuronCount = _hiddenNeuronCount,
+            useSoftmax = UseSoftmax,
+            initRange = InitRange,
+
+            W = new WeightLayerDTO[_W.Length],
+            B = new float[_B.Length][]
         };
-        for (int r = 0; r < rows; r++)
+
+        // Weights -> DTO (flat array)
+        for (int l = 0; l < _W.Length; l++)
         {
-            var row = new float[cols];
-            for (int c = 0; c < cols; c++)
-                row[c] = _W[l][r, c];
-            wDto.data[r] = row;
+            int rows = _W[l].GetLength(0);
+            int cols = _W[l].GetLength(1);
+
+            var wDto = new WeightLayerDTO
+            {
+                rows = rows,
+                cols = cols,
+                data = new float[rows * cols]
+            };
+
+            int index = 0;
+            for (int r = 0; r < rows; r++)
+            {
+                for (int c = 0; c < cols; c++)
+                {
+                    wDto.data[index++] = _W[l][r, c];
+                }
+            }
+
+            dto.W[l] = wDto;
         }
-        dto.W[l] = wDto;
+
+        // Biases -> DTO
+        for (int l = 0; l < _B.Length; l++)
+        {
+            int n = _B[l].Length;
+            var arr = new float[n];
+            Array.Copy(_B[l], arr, n);
+            dto.B[l] = arr;
+        }
+
+        return JsonUtility.ToJson(dto, prettyPrint);
     }
 
-    // Biases -> DTO
-    for (int l = 0; l < _B.Length; l++)
-    {
-        int n = _B[l].Length;
-        var arr = new float[n];
-        Array.Copy(_B[l], arr, n);
-        dto.B[l] = arr;
-    }
-
-    return JsonUtility.ToJson(dto, prettyPrint);
-    }
 
     public void SaveToFile(string path, bool prettyPrint = false)
     {
@@ -278,72 +283,80 @@ public class UtilityNNet
     // --- JSON LOAD (overwrite this instance) ---
     public void LoadFromJson(string json)
     {
-    var dto = JsonUtility.FromJson<UtilityNNetDTO>(json);
-    Initialize(dto.inputCount, dto.outputCount, dto.hiddenLayerCount, dto.hiddenNeuronCount);
-    UseSoftmax = dto.useSoftmax;
-    InitRange = dto.initRange;
+        var dto = JsonUtility.FromJson<UtilityNNetDTO>(json);
+        Initialize(dto.inputCount, dto.outputCount, dto.hiddenLayerCount, dto.hiddenNeuronCount);
+        UseSoftmax = dto.useSoftmax;
+        InitRange = dto.initRange;
 
-    // Copy weights from DTO
-    for (int l = 0; l < dto.W.Length; l++)
-    {
-        var w = dto.W[l];
-        if (_W[l].GetLength(0) != w.rows || _W[l].GetLength(1) != w.cols)
-            throw new Exception($"Weight shape mismatch at layer {l}: expected [{_W[l].GetLength(0)},{_W[l].GetLength(1)}], got [{w.rows},{w.cols}]");
-
-        for (int r = 0; r < w.rows; r++)
+        // Copy weights from flat array
+        for (int l = 0; l < dto.W.Length; l++)
         {
-            var row = w.data[r];
-            for (int c = 0; c < w.cols; c++)
-                _W[l][r, c] = row[c];
+            var w = dto.W[l];
+            if (_W[l].GetLength(0) != w.rows || _W[l].GetLength(1) != w.cols)
+                throw new Exception(
+                    $"Weight shape mismatch at layer {l}: expected [{_W[l].GetLength(0)},{_W[l].GetLength(1)}], got [{w.rows},{w.cols}]"
+                );
+
+            int index = 0;
+            for (int r = 0; r < w.rows; r++)
+            {
+                for (int c = 0; c < w.cols; c++)
+                {
+                    _W[l][r, c] = w.data[index++];
+                }
+            }
+        }
+
+        // Copy biases from DTO
+        for (int l = 0; l < dto.B.Length; l++)
+        {
+            if (_B[l].Length != dto.B[l].Length)
+                throw new Exception(
+                    $"Bias length mismatch at layer {l}: expected {_B[l].Length}, got {dto.B[l].Length}"
+                );
+
+            Array.Copy(dto.B[l], _B[l], _B[l].Length);
         }
     }
 
-    // Copy biases from DTO
-    for (int l = 0; l < dto.B.Length; l++)
-    {
-        if (_B[l].Length != dto.B[l].Length)
-            throw new Exception($"Bias length mismatch at layer {l}: expected {_B[l].Length}, got {dto.B[l].Length}");
-
-        Array.Copy(dto.B[l], _B[l], _B[l].Length);
-    }
-    }
 
     // Convenience factory
     public static UtilityNNet FromJson(string json)
-    {
-        var net = new UtilityNNet();
-        net.LoadFromJson(json);
-        return net;
-    }
+{
+    var net = new UtilityNNet();
+    net.LoadFromJson(json);
+    return net;
+}
 
-    // File load
-    public static UtilityNNet LoadFromFile(string path)
-    {
-        var json = File.ReadAllText(path);
-        return FromJson(json);
-    }
+// File load
+public static UtilityNNet LoadFromFile(string path)
+{
+    var json = File.ReadAllText(path);
+    return FromJson(json);
+}
 
 
 
 }
-    [Serializable]
-    public class UtilityNNetDTO
-    {
-        public int inputCount;
-        public int outputCount;
-        public int hiddenLayerCount;
-        public int hiddenNeuronCount;
-        public bool useSoftmax;
-        public float initRange;
+[Serializable]
+public class UtilityNNetDTO
+{
+    public int inputCount;
+    public int outputCount;
+    public int hiddenLayerCount;
+    public int hiddenNeuronCount;
+    public bool useSoftmax;
+    public float initRange;
 
-        public WeightLayerDTO[] W;   // each weight layer as rows
-        public float[][] B;          // biases per layer
-    }
+    public WeightLayerDTO[] W;   // each weight layer as rows
+    public float[][] B;          // biases per layer
+}
 
-    [Serializable]
-    public class WeightLayerDTO
-    {
-        public int rows;
-        public int cols;
-        public float[][] data; // data[rows][cols]
-    }
+[Serializable]
+public class WeightLayerDTO
+{
+    public int rows;
+    public int cols;
+    public float[] data; // flat array length = rows * cols
+}
+
