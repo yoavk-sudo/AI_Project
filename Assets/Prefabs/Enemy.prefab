@@ -49,6 +49,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1358529174140946411, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
+      propertyPath: detectionRadius
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1358529174140946411, guid: 5a9b851eead0ede43bf133d69c1bd2b3, type: 3}
       propertyPath: targetTags.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -163,6 +167,7 @@ MonoBehaviour:
   Sensor: {fileID: 1097327112678152303}
   HealthComponent: {fileID: 6896584330041593390}
   readonlyEvaluations: []
+  Fitness: 0
   _idleThreshold: 3
   _idleMoveThreshold: 0.05
   readonlyOutputs: []

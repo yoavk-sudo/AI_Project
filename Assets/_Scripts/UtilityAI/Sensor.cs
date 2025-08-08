@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(SphereCollider))]
 public class Sensor : MonoBehaviour
@@ -27,6 +28,8 @@ public class Sensor : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
         foreach (var c in colliders)
         {
+            if (c.transform == transform || (transform.childCount > 0 && c.transform == transform.GetChild(0)))
+                continue;
             ProcessTrigger(c, transform => detectedObjects.Add(transform));
         }
     }

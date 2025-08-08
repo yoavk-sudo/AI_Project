@@ -68,8 +68,7 @@ public class TrainingManager : MonoBehaviour
     private void SpawnAgent(int index, UtilityNNet brainToCopy = null)
     {
         Transform spawn = _enemySpawnPoints[index % _enemySpawnPoints.Length];
-        UtilityAIAgentNN agent = Instantiate(_agentPrefab, spawn.position, spawn.rotation);
-
+        UtilityAIAgentNN agent = Instantiate(_agentPrefab, spawn.position, spawn.rotation, _enemiesHolder);
         agent.neuralNetwork = new UtilityNNet();
         if (brainToCopy == null)
         {
@@ -79,6 +78,7 @@ public class TrainingManager : MonoBehaviour
         {
             agent.neuralNetwork.InitializeCopy(brainToCopy);
         }
+        agent.name = $"enemy{_agents.Count+1}";
         _agents.Add(agent);
     }
 
