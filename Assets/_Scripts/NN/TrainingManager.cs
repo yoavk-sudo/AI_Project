@@ -100,7 +100,7 @@ public class TrainingManager : MonoBehaviour
 
             SpawnAgent(i, parent);
         }
-        if(_generation % 5 == 0)
+        if(_generation % 15 == 0)
         {
             #if UNITY_EDITOR
             string resourcesPath = Path.Combine(Application.dataPath, "Resources/Brains");
