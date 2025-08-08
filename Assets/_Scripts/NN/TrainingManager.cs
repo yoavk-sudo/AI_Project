@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -7,7 +8,6 @@ public class TrainingManager : MonoBehaviour
     [Header("Training Settings")]
     [SerializeField] private UtilityAIAgentNN _agentPrefab;
     [SerializeField] private Transform[] _spawnPoints;
-    [SerializeField] private int _populationSize = 10;
     [SerializeField] private float _sessionTime = 30f;
     [SerializeField] private float _mutationChance = 0.05f;
     [SerializeField] private float _mutationStrength = 0.3f;
@@ -37,7 +37,7 @@ public class TrainingManager : MonoBehaviour
         _agents.Clear();
         _generation = 1;
 
-        for (int i = 0; i < _populationSize; i++)
+        for (int i = 0; i < _spawnPoints.Length; i++)
         {
             SpawnAgent(i);
         }
@@ -83,9 +83,9 @@ public class TrainingManager : MonoBehaviour
         _generation++;
 
         // How many elites to preserve
-        int eliteCount = Mathf.Min(3, _populationSize);
+        int eliteCount = Mathf.Min(3, _spawnPoints.Length);
 
-        for (int i = 0; i < _populationSize; i++)
+        for (int i = 0; i < _spawnPoints.Length; i++)
         {
             // Choose which elite to base this brain on
             int eliteIdx = i % eliteCount;
@@ -100,5 +100,48 @@ public class TrainingManager : MonoBehaviour
 
             SpawnAgent(i, parent);
         }
+        if(_generation % 5 == 0)
+        {
+            #if UNITY_EDITOR
+            string resourcesPath = Path.Combine(Application.dataPath, "Resources/Brains");
+            if (!Directory.Exists(resourcesPath))
+                Directory.CreateDirectory(resourcesPath);
+
+            bestBrains[0].SaveToFile(Path.Combine(resourcesPath,$"Brain_{_generation}")); // Save the best brain to a JSON file
+            // Every 20 generations, increase population size
+            Debug.Log("save brain to json file");
+            #endif
+
+        }
     }
+    List<UtilityNNet> LoadBestBrains(int numberOfBestBrains)
+    {
+        var brains = new List<UtilityNNet>();
+
+        // Load all brain files from Resources/Brains
+        TextAsset[] brainFiles = Resources.LoadAll<TextAsset>($"Brains");
+        if (brainFiles.Length == 0) return brains;
+
+        // Parse numeric suffixes
+        var sorted = brainFiles
+            .Select(b =>
+            {
+                string[] parts = b.name.Split('_');
+                int num = 0;
+                if (parts.Length > 1) int.TryParse(parts.Last(), out num);
+                return new { asset = b, index = num };
+            })
+            .OrderByDescending(x => x.index) // highest first
+            .ToList();
+
+        // Take top N
+        foreach (var entry in sorted.Take(numberOfBestBrains))
+        {
+            brains.Add(UtilityNNet.FromJson(entry.asset.text));
+        }
+
+        return brains;
+    }
+    
+
 }

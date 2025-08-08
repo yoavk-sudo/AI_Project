@@ -7,7 +7,7 @@ public class UtilityAIAgentNN : UtilityAIAgent
     public UtilityNNet neuralNetwork;
 
     public bool IsIdle { get; private set; }
-    public float Fitness { get; private set; }
+    [ReadOnly] public float Fitness;
 
     private float _idleTimer = 0f;
 
@@ -19,7 +19,6 @@ public class UtilityAIAgentNN : UtilityAIAgent
     [ReadOnly]
     public float[] readonlyOutputs;
 
-    [ReadOnly] public float readonlyFitness => Fitness;
     public Func<UtilityNNet> OnNNDeath;
     protected override void OnEnable()
     {
