@@ -1991,7 +1991,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1090525291431388701, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.01
+      value: 11.1
       objectReference: {fileID: 0}
     - target: {fileID: 1090525291431388701, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1999,7 +1999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1090525291431388701, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.96
+      value: -11.4
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8223181543147780130, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
@@ -2009,9 +2009,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3577539916661889308, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
       insertIndex: 1
       addedObject: {fileID: 1778274345}
-    - targetCorrespondingSourceObject: {fileID: 3577539916661889308, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1778274343}
   m_SourcePrefab: {fileID: 100100000, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
 --- !u!1001 &1218051191
 PrefabInstance:
@@ -3354,20 +3351,6 @@ NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 8170036239440986732, guid: f6cdd775b38c31d4bbd6d89278d41562, type: 3}
   m_PrefabInstance: {fileID: 1149379482}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1778274343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1778274330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 965966935cafb9046a1871fc2d9aa395, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkShape: 070000002000000001000000
-  layers: []
 --- !u!114 &1778274345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3391,7 +3374,7 @@ MonoBehaviour:
   HealthComponent: {fileID: 1778274331}
   readonlyEvaluations: []
   numberOfLayers: 32
-  neuralNetwork: {fileID: 1778274343}
+  readonlyOutputs: []
 --- !u!114 &1848714479 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6259992824197210197, guid: aca2e69132c30c541b3fdb1418f16974, type: 3}
@@ -3910,7 +3893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2092363633
 MonoBehaviour:
   m_ObjectHideFlags: 0

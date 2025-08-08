@@ -1,108 +1,104 @@
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using UnityEngine;
 
 public class TrainingManager : MonoBehaviour
 {
     [Header("Training Settings")]
-    public GameObject enemyPrefab;
-    public Transform[] spawnPoints;
-    public float sessionCooldown = 10f;
-    public float mutationChance = 0.1f;
-    public float mutationAmount = 0.3f;
+    [SerializeField] private UtilityAIAgentNN _agentPrefab;
+    [SerializeField] private Transform[] _spawnPoints;
+    [SerializeField] private int _populationSize = 10;
+    [SerializeField] private float _sessionTime = 30f;
+    [SerializeField] private float _mutationChance = 0.05f;
+    [SerializeField] private float _mutationStrength = 0.3f;
 
-    private List<GameObject> currentEnemies = new List<GameObject>();
-    private float sessionTimer = 0f;
-    private string bestBrainPath;
+    private float _timer;
+    [ReadOnly , SerializeField] private int _generation;
+    [ReadOnly , SerializeField] private List<UtilityAIAgentNN> _agents = new List<UtilityAIAgentNN>();
 
-    void Start()
+    private void Start()
     {
-        bestBrainPath = Path.Combine(Application.persistentDataPath, "best_brain.json");
-        StartCoroutine(TrainingLoop());
+        CreateInitialPopulation();
     }
 
-    IEnumerator TrainingLoop()
+    private void Update()
     {
-        while (true)
+        _timer += Time.deltaTime;
+
+        if (_timer >= _sessionTime)
         {
-            SpawnEnemies();
-            sessionTimer = 0f;
-
-            // Run training session
-            while (sessionTimer < sessionCooldown)
-            {
-                sessionTimer += Time.deltaTime;
-                yield return null;
-            }
-
-            EvaluateAndPrepareNextGeneration();
+            EvolvePopulation();
+            _timer = 0f;
         }
     }
 
-    void SpawnEnemies()
+    private void CreateInitialPopulation()
     {
-        ClearEnemies();
+        _agents.Clear();
+        _generation = 1;
 
-        foreach (Transform spawnPoint in spawnPoints)
+        for (int i = 0; i < _populationSize; i++)
         {
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
-            UtilityAIAgentNN enemeyUtilityAIAgentNN = enemy.GetComponent<UtilityAIAgentNN>();
-            NN nn = enemy.GetComponent<NN>();
-
-            // Load best brain if available, otherwise start fresh
-            if (File.Exists(bestBrainPath))
-            {
-                nn.LoadFromFile(bestBrainPath);
-                nn.MutateNetwork(mutationChance, mutationAmount); // Mutate slightly for diversity
-            }
-            else
-            {
-                nn.InitializeNetwork(enemeyUtilityAIAgentNN.actions.Count, 32, enemeyUtilityAIAgentNN.actions.Count); // Random initialization
-            }
-
-            currentEnemies.Add(enemy);
+            SpawnAgent(i);
         }
     }
 
-    void ClearEnemies()
+    private void SpawnAgent(int index, UtilityNNet brainToCopy = null)
     {
-        foreach (var enemy in currentEnemies)
+        Transform spawn = _spawnPoints[index % _spawnPoints.Length];
+        UtilityAIAgentNN agent = Instantiate(_agentPrefab, spawn.position, spawn.rotation);
+
+        agent.neuralNetwork = new UtilityNNet();
+        if (brainToCopy == null)
         {
-            if (enemy != null)
-                Destroy(enemy);
-        }
-        currentEnemies.Clear();
-    }
-
-    void EvaluateAndPrepareNextGeneration()
-    {
-        float bestFitness = float.MinValue;
-        NN bestBrain = null;
-
-        foreach (GameObject enemy in currentEnemies)
-        {
-            if (enemy == null) continue;
-
-            var ai = enemy.GetComponent<UtilityAIAgentNN>(); // or EnemyAI, or whatever script contains `Fitness`
-            if (ai == null) continue;
-
-            if (ai.Fitness > bestFitness)
-            {
-                bestFitness = ai.Fitness;
-                bestBrain = enemy.GetComponent<NN>();
-            }
-        }
-
-        if (bestBrain != null)
-        {
-            Debug.Log($"New Best Brain with fitness {bestFitness}");
-            bestBrain.SaveToFile(bestBrainPath);
+            agent.neuralNetwork.Initialize(agent.actions.Count, agent.actions.Count, 2, 8);
         }
         else
         {
-            Debug.LogWarning("No valid brains found to save.");
+            agent.neuralNetwork.InitializeCopy(brainToCopy);
+        }
+        _agents.Add(agent);
+    }
+
+    private void EvolvePopulation()
+    {
+        // Sort by fitness (best first)
+        var ordered = _agents.OrderByDescending(a => a.Fitness).ToList();
+
+        Debug.Log($"Generation {_generation} complete. Best fitness: {ordered[0].Fitness}");
+
+        // Save best 3 brains
+        UtilityNNet[] bestBrains = new UtilityNNet[3];
+        for (int i = 0; i < 3 && i < ordered.Count; i++)
+        {
+            bestBrains[i] = new UtilityNNet();
+            bestBrains[i].InitializeCopy(ordered[i].neuralNetwork);
+        }
+
+        // Destroy current population
+        foreach (var agent in _agents)
+            Destroy(agent.gameObject);
+        _agents.Clear();
+
+        _generation++;
+
+        // How many elites to preserve
+        int eliteCount = Mathf.Min(3, _populationSize);
+
+        for (int i = 0; i < _populationSize; i++)
+        {
+            // Choose which elite to base this brain on
+            int eliteIdx = i % eliteCount;
+
+            // Make a fresh brain and copy from the elite
+            var parent = new UtilityNNet();
+            parent.InitializeCopy(bestBrains[eliteIdx]);
+
+            // Mutate only non-elites
+            if (i >= eliteCount)
+                parent.Mutate(_mutationChance, _mutationStrength);
+
+            SpawnAgent(i, parent);
         }
     }
 }

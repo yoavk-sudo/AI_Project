@@ -22,6 +22,7 @@ public class Heal : AIAction
             return;
         }
         context.healthComponent.Heal(healAmount);
-        Debug.Log($"<color=green>{context.brain.name} healed for {healAmount} points.</color>");
+        context.brain.OnHeal?.Invoke();
+        //Debug.Log($"<color=green>{context.brain.name} healed for {healAmount} points.</color>");
     }
 }

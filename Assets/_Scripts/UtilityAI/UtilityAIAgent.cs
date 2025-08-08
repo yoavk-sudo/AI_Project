@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.EventSystems.EventTrigger;
-
+using System;
 public class UtilityAIAgent : MonoBehaviour
 {
     [Header("AI Components")]
@@ -16,7 +15,11 @@ public class UtilityAIAgent : MonoBehaviour
     [ReadOnly]
     public List<float> readonlyEvaluations;
     public bool IsIdle { get; private set; }
-
+    public Action OnAttackLandedAction;
+    public Action OnAttackMissedAction;
+    public Action OnEnemyKilledAction;
+    public Action OnDeathAction;
+    public Action OnHeal;
     protected virtual void OnEnable()
     {
         Context = new Context(this);

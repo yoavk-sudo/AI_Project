@@ -1,39 +1,38 @@
-using System.Collections.Generic;
-using System.Drawing;
+using System;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class UtilityAIAgentNN : UtilityAIAgent
 {
     [Header("Neural Network")]
-    [SerializeField] private int numberOfLayers = 32;
-    public NN neuralNetwork;
+    public UtilityNNet neuralNetwork;
 
     public bool IsIdle { get; private set; }
     public float Fitness { get; private set; }
-    public bool MutateMutations { get; private set; } = true;
-    public float MutationAmount { get; private set; } = 0.8f;
-    public float MutationChance { get; private set; } = 0.3f;
-    private bool isMutated = false;
+
+    private float _idleTimer = 0f;
+
+    [SerializeField] private float _idleThreshold = 3f; // seconds before penalty
+    [SerializeField] private float _idleMoveThreshold = 0.05f; // min movement speed to count as "active"
+
+    private Vector3 _lastPosition;
+
+    [ReadOnly]
+    public float[] readonlyOutputs;
+
+    [ReadOnly] public float readonlyFitness => Fitness;
+    public Func<UtilityNNet> OnNNDeath;
     protected override void OnEnable()
     {
         base.OnEnable();
-        if (neuralNetwork == null)
-        {
-            neuralNetwork = GetComponent<NN>();
-        }
-        neuralNetwork.InitializeNetwork(actions.Count, numberOfLayers, actions.Count);
+        readonlyOutputs = new float[actions.Count];
+        SubscribeEvents();
     }
-
+    private void OnDisable()
+    {
+        UnsubscribeEvents();
+    }
     protected override void Update()
     {
-        //only do this once
-        if (!isMutated)
-        {
-            //call mutate function to mutate the neural network
-            MutateCreature();
-            isMutated = true;
-        }
         foreach (var action in actions)
         {
             float utility = action.CalculateUtility(Context);
@@ -42,16 +41,16 @@ public class UtilityAIAgentNN : UtilityAIAgent
         float[] inputs = GatherNNInputs();
 
         // Get outputs from neural net
-        float[] outputs = neuralNetwork.Brain(inputs);
+        readonlyOutputs = neuralNetwork.Run(inputs);
         int bestActionIndex = 0;
         //outputs count cant be 0.
-        float maxEvaluation = outputs[0];
+        float maxEvaluation = readonlyOutputs[0];
 
-        for (int i = 1; i < outputs.Length; i++)
+        for (int i = 1; i < readonlyOutputs.Length; i++)
         {
-            if (outputs[i] > maxEvaluation)
+            if (readonlyOutputs[i] > maxEvaluation)
             {
-                maxEvaluation = outputs[i];
+                maxEvaluation = readonlyOutputs[i];
                 bestActionIndex = i;
             }
         }
@@ -62,33 +61,42 @@ public class UtilityAIAgentNN : UtilityAIAgent
         // Execute the chosen action
         bestAction.Execute(Context);
         IsIdle = bestAction is IdleAIAction;
-      
+        CheckIdlePenalty();
     }
 
     private float[] GatherNNInputs()
     {
         return readonlyEvaluations.ToArray();
     }
-    private void MutateCreature()
+    
+    private void CheckIdlePenalty()
     {
-        if (MutateMutations)
+        // 1) Movement-based idle detection
+        float movedDistance = Vector3.Distance(transform.position, _lastPosition);
+        bool isIdle = movedDistance < _idleMoveThreshold;
+
+        // 2) Track idle time
+        if (isIdle)
         {
-            MutationAmount += Random.Range(-1.0f, 1.0f) / 100;
-            MutationChance += Random.Range(-1.0f, 1.0f) / 100;
+            _idleTimer += Time.deltaTime;
+            if (_idleTimer >= _idleThreshold)
+            {
+                Fitness -=3f;
+                _idleTimer = 0f; // reset so it doesn't spam every frame
+            }
+        }
+        else
+        {
+            _idleTimer = 0f; // reset if moving
         }
 
-        //make sure mutation amount and chance are positive using max function
-        MutationAmount = Mathf.Max(MutationAmount, 0);
-        MutationChance = Mathf.Max(MutationChance, 0);
-
-        neuralNetwork.MutateNetwork(MutationAmount, MutationChance);
+        _lastPosition = transform.position;
     }
-
     public void OnAttackLanded()
     {
         Fitness += 10f;
     }
-    public void OnAttackMIssed()
+    public void OnAttackMissed()
     {
         Fitness -= 5f;
     }
@@ -101,8 +109,34 @@ public class UtilityAIAgentNN : UtilityAIAgent
     {
         Fitness -= 100f;
     }
+    public void OnTookDamage()
+    {
+        Fitness -= 5f;
+    }
+    public void OnHealDamage()
+    {
+        Fitness += 10f;
+    }
     public void OnIdleTooLong()
     {
         Fitness -= 5f;
+    }
+    private void SubscribeEvents()
+    {
+        HealthComponent.OnHit += OnTookDamage;
+        HealthComponent.OnHeal += OnHealDamage;
+        OnAttackLandedAction += OnAttackLanded;
+        OnAttackMissedAction += OnAttackMissed;
+        OnEnemyKilledAction += OnEnemyKilled;
+        OnDeathAction += OnDeath;
+    }
+    private void UnsubscribeEvents()
+    {
+        HealthComponent.OnHit -= OnTookDamage;
+        HealthComponent.OnHeal -= OnHealDamage;
+        OnAttackLandedAction -= OnAttackLanded;
+        OnAttackMissedAction -= OnAttackMissed;
+        OnEnemyKilledAction -= OnEnemyKilled;
+        OnDeathAction -= OnDeath;
     }
 }
