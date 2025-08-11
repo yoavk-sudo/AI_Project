@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DeliverResource
   m_EditorClassIdentifier: 
   targetTag: BuildStation
-  consideration: {fileID: 0}
+  consideration: {fileID: 11400000, guid: 3ae3efa2df3fc294d90ef546c41a1cef, type: 2}
