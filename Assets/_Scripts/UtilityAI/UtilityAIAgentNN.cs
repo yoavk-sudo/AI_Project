@@ -8,7 +8,7 @@ public class UtilityAIAgentNN : UtilityAIAgent
     [SerializeField] bool _loadNNOnStart = false;
     public UtilityNNet neuralNetwork;
 
-
+    int missingAttacks;
     public bool IsIdle { get; private set; }
     [ReadOnly] public float Fitness;
 
@@ -107,11 +107,18 @@ public class UtilityAIAgentNN : UtilityAIAgent
     }
     public void OnAttackLanded()
     {
-        Fitness += 10f;
+        Fitness += 50;
     }
     public void OnAttackMissed()
     {
-        Fitness -= 5f;
+        //reward for trying
+        Fitness += 2f;
+        missingAttacks++;
+        if(missingAttacks>=3)
+        {
+            Fitness -= 10f; // penalty for missing too many attacks
+            missingAttacks = 0; // reset counter after penalty
+        }
     }
 
     public void OnEnemyKilled()
