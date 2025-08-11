@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dadf96155e3a784da74ab7c12046478, type: 3}
-  m_Name: GoToIron
+  m_Script: {fileID: 11500000, guid: 4ddb367307a764f4f98112e5803661a1, type: 3}
+  m_Name: RefineCrystals
   m_EditorClassIdentifier: 
-  targetTag: Iron
-  consideration: {fileID: 11400000, guid: 9f8c4d6d2feaacb4b9440fd5f03a3e27, type: 2}
+  targetTag: Crystal
+  consideration: {fileID: 11400000, guid: 079efcaa30f87804a9206dfc7cc53f91, type: 2}
+  timeToCollect: 4

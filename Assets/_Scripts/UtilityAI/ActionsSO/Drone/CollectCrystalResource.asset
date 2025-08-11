@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CollectCrystalResource
   m_EditorClassIdentifier: 
   targetTag: CrystalResource
-  consideration: {fileID: 11400000, guid: 3c8ee9d35d4b77544a53fc01aad70c47, type: 2}
+  consideration: {fileID: 11400000, guid: 3eac8704589886944ac696dabfb01f2f, type: 2}

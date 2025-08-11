@@ -7,6 +7,7 @@ public class MetaAgentPlanner : MonoBehaviour
     [Header("Recipes")]
     [SerializeField] private CraftingRecipeSO enchantedStaffRecipe;
     [SerializeField] private CraftingRecipeSO runedShieldRecipe;
+    [SerializeField] private CraftingRecipeSO connectArtifactsRecipe;
 
     [Header("References")]
     [SerializeField] private ResourceManager resourceManager;
@@ -46,10 +47,10 @@ public class MetaAgentPlanner : MonoBehaviour
             if (actionQueue.Peek().CheckCompletion())
             {
                 actionQueue.Dequeue();
-                if(actionQueue.Count > 0)
-                {
-                    actionQueue.Peek().Execute();
-                }
+            }
+            if (actionQueue.Count > 0)
+            {
+                actionQueue.Peek().Execute();
             }
         }
         else
@@ -97,7 +98,7 @@ public class MetaAgentPlanner : MonoBehaviour
 
     private void PlanConnectArtifacts()
     {
-        actionQueue.Enqueue(new ConnectArtifactsAction(mage, buildLocation));
+        actionQueue.Enqueue(new ConnectArtifactsAction(mage, buildLocation, connectArtifactsRecipe));
     }
 }
 
@@ -254,25 +255,21 @@ public class BuildArtifactAction : GOAPAction
     {
         recipe = r; mage = m; buildLoc = b; this.onComplete = onComplete;
     }
-    public override bool CanExecute() => true;
+    public override bool CanExecute() => recipe.CanCraft();
 
     public override bool CheckCompletion()
     {
-        //if(//artifact is built)
-        //{
-        //    onComplete.Invoke();
-        //    return true;
-        //}
-        return false;
+        Debug.Log("Checking if artifact is built: " + recipe.recipeName);
+        var result = ResourceManager.Instance.GetResourceCount(recipe.recipeName) >= 1;
+        if (result) onComplete?.Invoke();
+        else Debug.LogWarning("Artifact not built yet: " + recipe.recipeName);
+        return result;
     }
 
     public override void Execute()
     {
         Debug.Log("Starting Meta Action: Build Artifact");
-
-        //make the mage want to build artifact
-        //mage.BuildArtifact(recipe);
-        onComplete?.Invoke();
+        CraftPriorityConsideration.Priorities[recipe] = true;
     }
 }
 
@@ -280,7 +277,8 @@ public class ConnectArtifactsAction : GOAPAction
 {
     private UtilityAIAgent mage;
     private Transform buildLoc;
-    public ConnectArtifactsAction(UtilityAIAgent m, Transform b) { mage = m; buildLoc = b; }
+    private CraftingRecipeSO recipe;
+    public ConnectArtifactsAction(UtilityAIAgent m, Transform b, CraftingRecipeSO _recipe) { mage = m; buildLoc = b; recipe = _recipe; }
     public override bool CanExecute() => true;
 
     public override bool CheckCompletion()
@@ -299,6 +297,7 @@ public class ConnectArtifactsAction : GOAPAction
 
         //make the mage want to connect the artifacts
         //mage.ConnectArtifacts();
+        CraftPriorityConsideration.Priorities[recipe] = true;
     }
 }
 

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CollectWoodResource
   m_EditorClassIdentifier: 
   targetTag: WoodResource
-  consideration: {fileID: 11400000, guid: 2151a3ff1366aac4593c8b9f3d64ab47, type: 2}
+  consideration: {fileID: 11400000, guid: 89d6c145a582e604cb5a75839ae8c0ae, type: 2}

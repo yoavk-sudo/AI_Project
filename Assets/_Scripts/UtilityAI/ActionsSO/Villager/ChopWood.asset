@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ddb367307a764f4f98112e5803661a1, type: 3}
-  m_Name: CollectIron
+  m_Name: ChopWood
   m_EditorClassIdentifier: 
-  targetTag: Iron
-  consideration: {fileID: 11400000, guid: 13249d9f91a37d246b229c7a5cb8cdeb, type: 2}
-  timeToCollect: 0
+  targetTag: Wood
+  consideration: {fileID: 11400000, guid: 928f4e55f0920b4429db494bd82580bb, type: 2}
+  timeToCollect: 2

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CraftShield
   m_EditorClassIdentifier: 
   targetTag: 
-  consideration: {fileID: 11400000, guid: 090a1b5c58d254b41906d6d67b70c11b, type: 2}
+  consideration: {fileID: 11400000, guid: cce3f0e70f331ae499486a5c453ac287, type: 2}
   recipe: {fileID: 11400000, guid: 3863b2ef5d6965b45a59135600161986, type: 2}
   artifactPrefab: {fileID: 8596347965965299808, guid: ba030da186dbc1c4fa9fb60d7cd4264d, type: 3}

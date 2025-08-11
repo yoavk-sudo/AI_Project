@@ -22,9 +22,9 @@ public class GlobalUtilityValues : MonoBehaviour
             Destroy(gameObject);
         }
 
-        resourceValuePairs.Add("Wood", 1);
-        resourceValuePairs.Add("Crystal", 1);
-        resourceValuePairs.Add("Iron", 1);
+        resourceValuePairs.Add("Wood", 0);
+        resourceValuePairs.Add("Crystal", 0);
+        resourceValuePairs.Add("Iron", 0);
     }
 
     public void Prioritize(string resourceName)

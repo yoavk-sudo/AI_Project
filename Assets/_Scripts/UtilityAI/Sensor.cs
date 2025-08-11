@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(SphereCollider))]
 public class Sensor : MonoBehaviour
@@ -28,20 +28,22 @@ public class Sensor : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
         foreach (var c in colliders)
         {
-            if (c.transform == transform || (transform.childCount > 0 && c.transform == transform.GetChild(0)))
-                continue;
             ProcessTrigger(c, transform => detectedObjects.Add(transform));
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        ProcessTrigger(other, t => { if (!detectedObjects.Contains(t)) detectedObjects.Add(t); });
+        ProcessTrigger(other, t => detectedObjects.Add(t));
+        detectedObjects.RemoveAll(t => t == null); // Clean up any null references
+        detectedObjects = detectedObjects.Distinct().ToList();
     }
 
     void OnTriggerExit(Collider other)
     {
         ProcessTrigger(other, t => detectedObjects.Remove(t));
+        detectedObjects.RemoveAll(t => t == null); // Clean up any null references
+        detectedObjects = detectedObjects.Distinct().ToList();
     }
 
     void ProcessTrigger(Collider other, Action<Transform> action)

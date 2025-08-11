@@ -9,7 +9,7 @@ public class CraftArtifact : AIAction
     {
         foreach (var item in recipe.ingredients)
         {
-            ResourceManager.Instance.UseResourceAmount(item.resource.name, item.amount);
+            ResourceManager.Instance.UseResourceAmount(item.resource.resourceName, item.amount);
         }
         Instantiate(artifactPrefab, ResourceManager.Instance.transform.position + Vector3.up * 0.5f, Quaternion.identity);
         ResourceManager.Instance.GainResourceAmount(recipe.recipeName, 1);

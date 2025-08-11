@@ -13,7 +13,7 @@ public class ResourcesAvailableConsideration : Consideration
         foreach (var resource in resources)
         {
             var amountInResources = ResourceManager.Instance.GetResourceCount(resource.resource.resourceName);
-            if (resource.amount >= amountInResources)
+            if (resource.amount > amountInResources)
             {
                 return 0f; // If any resource is not available, return 0 utility
             }
