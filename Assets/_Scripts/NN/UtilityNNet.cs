@@ -9,215 +9,172 @@ public class UtilityNNet
     private int _hiddenLayerCount;
     private int _hiddenNeuronCount;
 
-    private float[] _input;
-    private float[][] _hidden;   // [layer][neuron]
-    private float[] _output;
+    // Activations
+    private float[] _input;                  // [inputCount]
+    private float[] _hidden;                 // [_hiddenLayerCount * _hiddenNeuronCount]
+    private float[] _output;                 // [outputCount]
+    private int[] _hiddenOffsets;            // [hiddenLayerCount], base index per hidden layer
 
-    private float[][,] _W;       // weights[layer][from, to]
-    private float[][] _B;        // biases[layer][to]
+    // Parameters
+    private float[][,] _W;                   // weights[layer][from, to]  (keep [,] for clarity/perf)
+    private float[] _B;                      // flattened biases of all layers
+    private int[] _biasOffsets;              // [hiddenLayerCount + 1], base index per bias layer
 
     public bool UseSoftmax = false;
     public float InitRange = 1f;
 
     public void Initialize(int inputCount, int outputCount, int hiddenLayerCount, int hiddenNeuronCount)
     {
+        if (inputCount <= 0 || outputCount <= 0) throw new ArgumentException("input/output must be > 0");
+        if (hiddenLayerCount <= 0 || hiddenNeuronCount <= 0) throw new ArgumentException("hidden dims must be > 0");
+
         _inputCount = inputCount;
         _outputCount = outputCount;
         _hiddenLayerCount = hiddenLayerCount;
         _hiddenNeuronCount = hiddenNeuronCount;
 
+        // Activations
         _input = new float[_inputCount];
-        _hidden = new float[_hiddenLayerCount][];
-        for (int i = 0; i < _hiddenLayerCount; i++)
-            _hidden[i] = new float[_hiddenNeuronCount];
+        _hidden = new float[_hiddenLayerCount * _hiddenNeuronCount];
         _output = new float[_outputCount];
 
-        // Allocate weights
-        _W = new float[_hiddenLayerCount + 1][,]; // +1 for output layer
-        // Input -> H1
-        _W[0] = new float[_inputCount, _hiddenNeuronCount];
-        // Hidden -> Hidden
-        for (int i = 1; i < _hiddenLayerCount; i++)
-            _W[i] = new float[_hiddenNeuronCount, _hiddenNeuronCount];
-        // Last hidden -> Output
-        _W[_hiddenLayerCount] = new float[_hiddenNeuronCount, _outputCount];
+        // Offsets
+        _hiddenOffsets = new int[_hiddenLayerCount];
+        for (int l = 0; l < _hiddenLayerCount; l++)
+            _hiddenOffsets[l] = l * _hiddenNeuronCount;
 
-        // Allocate biases
-        _B = new float[_hiddenLayerCount + 1][];
-        for (int i = 0; i < _hiddenLayerCount; i++)
-            _B[i] = new float[_hiddenNeuronCount];
-        _B[_hiddenLayerCount] = new float[_outputCount];
+        // Weights
+        _W = new float[_hiddenLayerCount + 1][,];
+        _W[0] = new float[_inputCount, _hiddenNeuronCount];                    // Input -> H0
+        for (int l = 1; l < _hiddenLayerCount; l++)
+            _W[l] = new float[_hiddenNeuronCount, _hiddenNeuronCount];         // Hi-1 -> Hi
+        _W[_hiddenLayerCount] = new float[_hiddenNeuronCount, _outputCount];   // Hlast -> Out
+
+        // Biases (flattened): hidden layers + output layer
+        _biasOffsets = new int[_hiddenLayerCount + 1];
+        int totalBias = 0;
+        for (int l = 0; l < _hiddenLayerCount; l++)
+        {
+            _biasOffsets[l] = totalBias;
+            totalBias += _hiddenNeuronCount;
+        }
+        _biasOffsets[_hiddenLayerCount] = totalBias;
+        totalBias += _outputCount;
+
+        _B = new float[totalBias];
 
         RandomizeParameters();
     }
+
     public void InitializeCopy(UtilityNNet other)
     {
-        if (other == null)
-            throw new ArgumentNullException(nameof(other));
+        if (other == null) throw new ArgumentNullException(nameof(other));
 
-        _inputCount = other._inputCount;
-        _outputCount = other._outputCount;
-        _hiddenLayerCount = other._hiddenLayerCount;
-        _hiddenNeuronCount = other._hiddenNeuronCount;
+        Initialize(other._inputCount, other._outputCount, other._hiddenLayerCount, other._hiddenNeuronCount);
         UseSoftmax = other.UseSoftmax;
         InitRange = other.InitRange;
 
-        _input = new float[_inputCount];
-        _hidden = new float[_hiddenLayerCount][];
-        for (int i = 0; i < _hiddenLayerCount; i++)
-            _hidden[i] = new float[_hiddenNeuronCount];
-        _output = new float[_outputCount];
-
-        // Allocate new arrays for weights
-        _W = new float[_hiddenLayerCount + 1][,];
-        _W[0] = new float[_inputCount, _hiddenNeuronCount];
-        for (int i = 1; i < _hiddenLayerCount; i++)
-            _W[i] = new float[_hiddenNeuronCount, _hiddenNeuronCount];
-        _W[_hiddenLayerCount] = new float[_hiddenNeuronCount, _outputCount];
-
-        // Allocate new arrays for biases
-        _B = new float[_hiddenLayerCount + 1][];
-        for (int i = 0; i < _hiddenLayerCount; i++)
-            _B[i] = new float[_hiddenNeuronCount];
-        _B[_hiddenLayerCount] = new float[_outputCount];
-
-        // Copy values from other network
+        // Deep copy weights
         for (int l = 0; l < _W.Length; l++)
         {
-            for (int i = 0; i < _W[l].GetLength(0); i++)
-            {
-                for (int j = 0; j < _W[l].GetLength(1); j++)
-                {
-                    _W[l][i, j] = other._W[l][i, j];
-                }
-            }
+            int r0 = _W[l].GetLength(0);
+            int c0 = _W[l].GetLength(1);
+            for (int r = 0; r < r0; r++)
+                for (int c = 0; c < c0; c++)
+                    _W[l][r, c] = other._W[l][r, c];
         }
-
-        for (int l = 0; l < _B.Length; l++)
-        {
-            for (int j = 0; j < _B[l].Length; j++)
-            {
-                _B[l][j] = other._B[l][j];
-            }
-        }
+        // Copy biases
+        Array.Copy(other._B, _B, _B.Length);
     }
 
     public void RandomizeParameters()
     {
+        // Weights
         for (int l = 0; l < _W.Length; l++)
         {
-            for (int i = 0; i < _W[l].GetLength(0); i++)
-            {
-                for (int j = 0; j < _W[l].GetLength(1); j++)
-                {
-                    _W[l][i, j] = UnityEngine.Random.Range(-InitRange, InitRange);
-                }
-            }
+            int rows = _W[l].GetLength(0);
+            int cols = _W[l].GetLength(1);
+            for (int r = 0; r < rows; r++)
+                for (int c = 0; c < cols; c++)
+                    _W[l][r, c] = UnityEngine.Random.Range(-InitRange, InitRange);
         }
-        for (int l = 0; l < _B.Length; l++)
-        {
-            for (int j = 0; j < _B[l].Length; j++)
-            {
-                _B[l][j] = UnityEngine.Random.Range(-InitRange, InitRange);
-            }
-        }
+        // Biases
+        for (int i = 0; i < _B.Length; i++)
+            _B[i] = UnityEngine.Random.Range(-InitRange, InitRange);
     }
 
     public float[] Run(float[] inputs)
     {
-        if (inputs.Length != _inputCount)
-            throw new ArgumentException($"Expected {_inputCount} inputs, got {inputs.Length}");
+        if (inputs == null || inputs.Length != _inputCount)
+            throw new ArgumentException($"Expected {_inputCount} inputs, got {(inputs == null ? -1 : inputs.Length)}");
 
         Array.Copy(inputs, _input, _inputCount);
 
         // Input -> Hidden[0]
+        int h0 = _hiddenOffsets[0];
+        int b0 = _biasOffsets[0];
         for (int j = 0; j < _hiddenNeuronCount; j++)
         {
-            float sum = _B[0][j];
+            float sum = _B[b0 + j];
             for (int i = 0; i < _inputCount; i++)
                 sum += _input[i] * _W[0][i, j];
-            _hidden[0][j] = Tanh(sum);
+            _hidden[h0 + j] = Tanh(sum);
         }
 
         // Hidden -> Hidden
         for (int l = 1; l < _hiddenLayerCount; l++)
         {
+            int hPrev = _hiddenOffsets[l - 1];
+            int hCur = _hiddenOffsets[l];
+            int bCur = _biasOffsets[l];
+
             for (int j = 0; j < _hiddenNeuronCount; j++)
             {
-                float sum = _B[l][j];
+                float sum = _B[bCur + j];
                 for (int i = 0; i < _hiddenNeuronCount; i++)
-                    sum += _hidden[l - 1][i] * _W[l][i, j];
-                _hidden[l][j] = Tanh(sum);
+                    sum += _hidden[hPrev + i] * _W[l][i, j];
+                _hidden[hCur + j] = Tanh(sum);
             }
         }
 
         // Last hidden -> Output
         int outLayer = _hiddenLayerCount;
+        int hLast = _hiddenOffsets[_hiddenLayerCount - 1];
+        int bOut = _biasOffsets[outLayer];
+
         for (int j = 0; j < _outputCount; j++)
         {
-            float sum = _B[outLayer][j];
+            float sum = _B[bOut + j];
             for (int i = 0; i < _hiddenNeuronCount; i++)
-                sum += _hidden[_hiddenLayerCount - 1][i] * _W[outLayer][i, j];
-            _output[j] = sum; // raw
+                sum += _hidden[hLast + i] * _W[outLayer][i, j];
+            _output[j] = sum; // raw logits
         }
 
         if (UseSoftmax)
             Softmax(_output);
         else
-        {
             for (int j = 0; j < _outputCount; j++)
                 _output[j] = Sigmoid(_output[j]);
-        }
 
         return _output;
     }
 
-    private static float Tanh(float x) => (float)Math.Tanh(x);
-    private static float Sigmoid(float x) => 1f / (1f + Mathf.Exp(-x));
-
-    private static void Softmax(float[] values)
-    {
-        float max = float.NegativeInfinity;
-        for (int i = 0; i < values.Length; i++)
-            if (values[i] > max) max = values[i];
-        float sum = 0f;
-        for (int i = 0; i < values.Length; i++)
-        {
-            values[i] = Mathf.Exp(values[i] - max);
-            sum += values[i];
-        }
-        if (sum <= Mathf.Epsilon) sum = Mathf.Epsilon;
-        for (int i = 0; i < values.Length; i++)
-            values[i] /= sum;
-    }
     public void Mutate(float mutationChance, float mutationStrength)
     {
-        // Mutate weights
+        // Weights
         for (int l = 0; l < _W.Length; l++)
         {
-            for (int i = 0; i < _W[l].GetLength(0); i++)
-            {
-                for (int j = 0; j < _W[l].GetLength(1); j++)
-                {
+            int rows = _W[l].GetLength(0);
+            int cols = _W[l].GetLength(1);
+            for (int r = 0; r < rows; r++)
+                for (int c = 0; c < cols; c++)
                     if (UnityEngine.Random.value < mutationChance)
-                    {
-                        _W[l][i, j] += UnityEngine.Random.Range(-mutationStrength, mutationStrength);
-                    }
-                }
-            }
+                        _W[l][r, c] += UnityEngine.Random.Range(-mutationStrength, mutationStrength);
         }
-
-        // Mutate biases
-        for (int l = 0; l < _B.Length; l++)
-        {
-            for (int j = 0; j < _B[l].Length; j++)
-            {
-                if (UnityEngine.Random.value < mutationChance)
-                {
-                    _B[l][j] += UnityEngine.Random.Range(-mutationStrength, mutationStrength);
-                }
-            }
-        }
+        // Biases
+        for (int i = 0; i < _B.Length; i++)
+            if (UnityEngine.Random.value < mutationChance)
+                _B[i] += UnityEngine.Random.Range(-mutationStrength, mutationStrength);
     }
 
     // --- JSON SAVE ---
@@ -233,46 +190,31 @@ public class UtilityNNet
             initRange = InitRange,
 
             W = new WeightLayerDTO[_W.Length],
-            B = new float[_B.Length][]
+            // Bias meta (sizes per layer) + flat data
+            biasSizes = BuildBiasSizes(),
+            B = (float[])_B.Clone()
         };
 
-        // Weights -> DTO (flat array)
+        // Weights -> DTO (flat)
         for (int l = 0; l < _W.Length; l++)
         {
             int rows = _W[l].GetLength(0);
             int cols = _W[l].GetLength(1);
-
             var wDto = new WeightLayerDTO
             {
                 rows = rows,
                 cols = cols,
                 data = new float[rows * cols]
             };
-
-            int index = 0;
+            int k = 0;
             for (int r = 0; r < rows; r++)
-            {
                 for (int c = 0; c < cols; c++)
-                {
-                    wDto.data[index++] = _W[l][r, c];
-                }
-            }
-
+                    wDto.data[k++] = _W[l][r, c];
             dto.W[l] = wDto;
-        }
-
-        // Biases -> DTO
-        for (int l = 0; l < _B.Length; l++)
-        {
-            int n = _B[l].Length;
-            var arr = new float[n];
-            Array.Copy(_B[l], arr, n);
-            dto.B[l] = arr;
         }
 
         return JsonUtility.ToJson(dto, prettyPrint);
     }
-
 
     public void SaveToFile(string path, bool prettyPrint = false)
     {
@@ -288,7 +230,23 @@ public class UtilityNNet
         UseSoftmax = dto.useSoftmax;
         InitRange = dto.initRange;
 
-        // Copy weights from flat array
+        // Validate bias sizes and copy
+        int expectedTotalBias = 0;
+        var expectedSizes = BuildBiasSizes();
+        if (dto.biasSizes == null || dto.biasSizes.Length != expectedSizes.Length)
+            throw new Exception("biasSizes missing or wrong length in JSON.");
+        for (int i = 0; i < expectedSizes.Length; i++)
+        {
+            if (dto.biasSizes[i] != expectedSizes[i])
+                throw new Exception($"biasSizes mismatch at layer {i}: expected {expectedSizes[i]}, got {dto.biasSizes[i]}");
+            expectedTotalBias += expectedSizes[i];
+        }
+        if (dto.B == null || dto.B.Length != expectedTotalBias)
+            throw new Exception($"Bias array length mismatch: expected {expectedTotalBias}, got {(dto.B == null ? -1 : dto.B.Length)}");
+
+        Array.Copy(dto.B, _B, _B.Length);
+
+        // Copy weights
         for (int l = 0; l < dto.W.Length; l++)
         {
             var w = dto.W[l];
@@ -296,48 +254,57 @@ public class UtilityNNet
                 throw new Exception(
                     $"Weight shape mismatch at layer {l}: expected [{_W[l].GetLength(0)},{_W[l].GetLength(1)}], got [{w.rows},{w.cols}]"
                 );
-
-            int index = 0;
+            int k = 0;
             for (int r = 0; r < w.rows; r++)
-            {
                 for (int c = 0; c < w.cols; c++)
-                {
-                    _W[l][r, c] = w.data[index++];
-                }
-            }
-        }
-
-        // Copy biases from DTO
-        for (int l = 0; l < dto.B.Length; l++)
-        {
-            if (_B[l].Length != dto.B[l].Length)
-                throw new Exception(
-                    $"Bias length mismatch at layer {l}: expected {_B[l].Length}, got {dto.B[l].Length}"
-                );
-
-            Array.Copy(dto.B[l], _B[l], _B[l].Length);
+                    _W[l][r, c] = w.data[k++];
         }
     }
 
-
-    // Convenience factory
     public static UtilityNNet FromJson(string json)
-{
-    var net = new UtilityNNet();
-    net.LoadFromJson(json);
-    return net;
+    {
+        var net = new UtilityNNet();
+        net.LoadFromJson(json);
+        return net;
+    }
+
+    public static UtilityNNet LoadFromFile(string path)
+    {
+        var json = File.ReadAllText(path);
+        return FromJson(json);
+    }
+
+    // ---- Helpers ----
+    private int[] BuildBiasSizes()
+    {
+        var sizes = new int[_hiddenLayerCount + 1];
+        for (int l = 0; l < _hiddenLayerCount; l++)
+            sizes[l] = _hiddenNeuronCount;
+        sizes[_hiddenLayerCount] = _outputCount;
+        return sizes;
+    }
+
+    private static float Tanh(float x) => (float)Math.Tanh(x);
+    private static float Sigmoid(float x) => 1f / (1f + Mathf.Exp(-x));
+
+    private static void Softmax(float[] values)
+    {
+        float max = float.NegativeInfinity;
+        for (int i = 0; i < values.Length; i++)
+            if (values[i] > max) max = values[i];
+
+        float sum = 0f;
+        for (int i = 0; i < values.Length; i++)
+        {
+            values[i] = Mathf.Exp(values[i] - max);
+            sum += values[i];
+        }
+        if (sum <= Mathf.Epsilon) sum = Mathf.Epsilon;
+        for (int i = 0; i < values.Length; i++)
+            values[i] /= sum;
+    }
 }
 
-// File load
-public static UtilityNNet LoadFromFile(string path)
-{
-    var json = File.ReadAllText(path);
-    return FromJson(json);
-}
-
-
-
-}
 [Serializable]
 public class UtilityNNetDTO
 {
@@ -348,8 +315,9 @@ public class UtilityNNetDTO
     public bool useSoftmax;
     public float initRange;
 
-    public WeightLayerDTO[] W;   // each weight layer as rows
-    public float[][] B;          // biases per layer
+    public WeightLayerDTO[] W;   // weights as flat per layer
+    public int[] biasSizes;      // sizes per bias layer (hidden... + output)
+    public float[] B;            // all biases flattened
 }
 
 [Serializable]
@@ -359,4 +327,3 @@ public class WeightLayerDTO
     public int cols;
     public float[] data; // flat array length = rows * cols
 }
-

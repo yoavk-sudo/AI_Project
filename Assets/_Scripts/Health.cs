@@ -12,6 +12,8 @@ public class Health : MonoBehaviour
     public Action OnHit;
     public Action OnDeath;
     public Action OnHeal;
+    public Action OnHealOnHighHP;
+    public Action OnGotPotion;
     private void Awake()
     {
         maxHealth = health;
@@ -42,6 +44,7 @@ public class Health : MonoBehaviour
     private void Die(Action hasSenderGotAKill)
     {
         hasSenderGotAKill?.Invoke();
+        OnDeath?.Invoke();
         gameObject.SetActive(false);//destroy when training session end.
     }
 
@@ -53,6 +56,9 @@ public class Health : MonoBehaviour
             return false;
         }
         numberOfHeals--;
+        OnHeal?.Invoke();
+        if((health/maxHealth)>0.8f)
+            OnHealOnHighHP?.Invoke();
         health += amount;
         return true;
     }
@@ -60,6 +66,7 @@ public class Health : MonoBehaviour
     private void GainPotion()
     {
         numberOfHeals++;
+        OnGotPotion?.Invoke();
         //Debug.Log($"<color=green>Gained a potion! {gameObject.name} now has {numberOfHeals} heals left.</color>");
     }
     public int GetHealth()

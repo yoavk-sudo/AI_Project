@@ -4,7 +4,10 @@ using UnityEngine;
 public class UtilityAIAgentNN : UtilityAIAgent
 {
     [Header("Neural Network")]
+    [SerializeField] TextAsset _nnBrainToLoad;
+    [SerializeField] bool _loadNNOnStart = false;
     public UtilityNNet neuralNetwork;
+
 
     public bool IsIdle { get; private set; }
     [ReadOnly] public float Fitness;
@@ -25,6 +28,17 @@ public class UtilityAIAgentNN : UtilityAIAgent
         base.OnEnable();
         readonlyOutputs = new float[actions.Count];
         SubscribeEvents();
+        if(_loadNNOnStart && _nnBrainToLoad == null)
+            Debug.LogError("No neural network brain to load. Please assign a valid TextAsset.");
+        else
+        {
+            if (_loadNNOnStart)
+            {
+                neuralNetwork = UtilityNNet.FromJson(_nnBrainToLoad.text);
+                if (neuralNetwork == null)
+                    Debug.LogError("Failed to load neural network from the provided TextAsset.");
+            }
+        }
     }
     private void OnDisable()
     {
@@ -114,7 +128,15 @@ public class UtilityAIAgentNN : UtilityAIAgent
     }
     public void OnHealDamage()
     {
-        Fitness += 10f;
+        Fitness += 100f;
+    }
+    public void OnHealDamageOnHighHP()
+    {
+        Fitness -= 50;
+    }
+    public void OnGotPotion()
+    {
+        Fitness += 20;
     }
     public void OnIdleTooLong()
     {
@@ -124,6 +146,8 @@ public class UtilityAIAgentNN : UtilityAIAgent
     {
         HealthComponent.OnHit += OnTookDamage;
         HealthComponent.OnHeal += OnHealDamage;
+        HealthComponent.OnHealOnHighHP += OnHealDamageOnHighHP;
+        HealthComponent.OnGotPotion += OnGotPotion;
         OnAttackLandedAction += OnAttackLanded;
         OnAttackMissedAction += OnAttackMissed;
         OnEnemyKilledAction += OnEnemyKilled;
@@ -133,6 +157,8 @@ public class UtilityAIAgentNN : UtilityAIAgent
     {
         HealthComponent.OnHit -= OnTookDamage;
         HealthComponent.OnHeal -= OnHealDamage;
+        HealthComponent.OnHealOnHighHP -= OnHealDamageOnHighHP;
+        HealthComponent.OnGotPotion -= OnGotPotion;
         OnAttackLandedAction -= OnAttackLanded;
         OnAttackMissedAction -= OnAttackMissed;
         OnEnemyKilledAction -= OnEnemyKilled;
