@@ -16,6 +16,7 @@ public class TrainingManager : MonoBehaviour
     [SerializeField] private Transform[] _enemySpawnPoints;
     [SerializeField] private Transform[] _potionsSpawnPoints;
     [Header("Training Settings")]
+    [SerializeField] private int _createABrainEveryXGenerations = 5; // how often to save a brain to file
     [SerializeField] private float _sessionTime = 30f;
     [SerializeField] private float _mutationChance = 0.05f;
     [SerializeField] private float _mutationStrength = 0.3f;
@@ -122,7 +123,7 @@ public class TrainingManager : MonoBehaviour
 
             SpawnAgent(i, parent);
         }
-        if(_generation % 2 == 0)
+        if(_generation % _createABrainEveryXGenerations == 0)
         {
             #if UNITY_EDITOR
             string resourcesPath = Path.Combine(Application.dataPath, "Resources/Brains");

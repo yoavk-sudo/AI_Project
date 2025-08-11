@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potion (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3532484960074358432, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5245890563790932762, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -21.921614
@@ -188,6 +192,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potion (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3532484960074358432, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5245890563790932762, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.26
@@ -244,6 +252,10 @@ PrefabInstance:
     - target: {fileID: 3532484960074358432, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
       propertyPath: m_Name
       value: Potion (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532484960074358432, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5245890563790932762, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -481,6 +493,10 @@ PrefabInstance:
     - target: {fileID: 8912654251061038497, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
       propertyPath: m_Name
       value: Villager (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912654251061038497, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8912654251061038497, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
       propertyPath: m_TagString
@@ -1986,6 +2002,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potion (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 3532484960074358432, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5245890563790932762, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.5
@@ -2685,6 +2705,10 @@ PrefabInstance:
     - target: {fileID: 3532484960074358432, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
       propertyPath: m_Name
       value: Potion (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532484960074358432, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5245890563790932762, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4613,6 +4637,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potion (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3532484960074358432, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5245890563790932762, guid: 79644bd0c733df444a7ffcf47591dc9d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.5
@@ -4722,6 +4750,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Villager
       objectReference: {fileID: 0}
+    - target: {fileID: 8912654251061038497, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4798,6 +4830,10 @@ PrefabInstance:
     - target: {fileID: 8912654251061038497, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
       propertyPath: m_Name
       value: Villager (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912654251061038497, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8912654251061038497, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
       propertyPath: m_TagString
@@ -4980,7 +5016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1090525291431388701, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.156488
+      value: 2.7
       objectReference: {fileID: 0}
     - target: {fileID: 1090525291431388701, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5021,7 +5057,7 @@ PrefabInstance:
     - target: {fileID: 1671432429053958204, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
       propertyPath: _nnBrainToLoad
       value: 
-      objectReference: {fileID: 4900000, guid: 4e9ace368b7e1784ba8a06f6a27e09d7, type: 3}
+      objectReference: {fileID: 4900000, guid: 496ae9eea3bba054eb58598b689f31ff, type: 3}
     - target: {fileID: 3577539916661889308, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
       propertyPath: m_Name
       value: EnemyGame
@@ -5131,6 +5167,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drone
       objectReference: {fileID: 0}
+    - target: {fileID: 7450237172097725060, guid: bd0ea81422d82bf4cabbf716b472591f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5207,6 +5247,10 @@ PrefabInstance:
     - target: {fileID: 8912654251061038497, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
       propertyPath: m_Name
       value: Villager (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912654251061038497, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8912654251061038497, guid: 27538d8dfc1a51240bbf4879685ddf95, type: 3}
       propertyPath: m_TagString
@@ -5841,13 +5885,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1671432429053958204, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
+      propertyPath: _loadNNOnStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3577539916661889308, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
       propertyPath: m_Name
       value: EnemyGame (2)
       objectReference: {fileID: 0}
     - target: {fileID: 3577539916661889308, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8226010717082169307, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6042,13 +6090,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1671432429053958204, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
+      propertyPath: _loadNNOnStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671432429053958204, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
+      propertyPath: _nnBrainToLoad
+      value: 
+      objectReference: {fileID: 4900000, guid: c361ecac229aaf841a7c0c74c55362a3, type: 3}
     - target: {fileID: 3577539916661889308, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
       propertyPath: m_Name
       value: EnemyGame (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3577539916661889308, guid: 53f08c8d67b8a2549aed09f25fbac31f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
